@@ -1,5 +1,6 @@
 # listen-music-together
-**本项目仅供学习和研究使用,其他用途本项目概不负责**
+**注意:本项目仅供学习和研究使用,其他用途本项目概不负责**
+
 一起听歌,一起嗨皮
 本项目作为一起听歌的后端项目
 ## 简述
@@ -7,7 +8,7 @@
 * 底层直接用redis存储
 * 音乐服务均来自第三方
 ## 灵感来源
-### [Jusic-Serve-Houses]()https://github.com/JumpAlang/Jusic-Serve-Houses)
+### [Jusic-Serve-Houses](https://github.com/JumpAlang/Jusic-Serve-Houses)
 学习和研究的过程中,发现不符合本人编码习惯,所以打算重新做一个,重复造轮子什么的最棒了
 
 ## 项目结构说明
