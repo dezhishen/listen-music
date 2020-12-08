@@ -1,5 +1,7 @@
 package com.dezhishen.domain;
 
+import com.dezhishen.base.BaseDomain;
+import com.dezhishen.constant.Role;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,10 +14,10 @@ import java.util.Map;
  */
 @Getter
 @Setter
-public class SystemUser {
-    private String id;
+public class SystemUser extends BaseDomain {
     private String name;
     private String houseId;
+    private String role = Role.NORMAL;
     private Map<String, String> properties;
 
     public String getProperty(String key) {
