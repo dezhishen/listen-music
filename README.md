@@ -32,6 +32,6 @@
 * [NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi)
 * [QQMusicApi](https://github.com/jsososo/QQMusicApi)
 * [MiguMusicApi](https://github.com/JumpAlang/MiguMusicApi)
-* [MiguMusicApi]https://github.com/jsososo/MiguMusicApi
+* [MiguMusicApi](https://github.com/jsososo/MiguMusicApi)
 
 
