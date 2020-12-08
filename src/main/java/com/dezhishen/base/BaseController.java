@@ -1,5 +1,6 @@
 package com.dezhishen.base;
 
+import com.dezhishen.domain.SystemUser;
 import com.dezhishen.exception.MusicException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -55,5 +56,14 @@ public class BaseController {
         }
         e.printStackTrace();
         return fail(RespCode.EXCEPTION, e.getMessage());
+    }
+
+    /**
+     * 获取当前会话的用户
+     *
+     * @return
+     */
+    protected SystemUser getUser() {
+        return new SystemUser();
     }
 }
