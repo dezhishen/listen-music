@@ -1,6 +1,6 @@
 package com.dezhishen.service;
 
-import com.dezhishen.domain.Music;
+import com.dezhishen.domain.Song;
 import com.dezhishen.domain.MusicUser;
 import com.dezhishen.domain.PlayList;
 import org.springframework.data.domain.Page;
@@ -20,7 +20,7 @@ public interface MusicService {
      * @param pageSize
      * @return
      */
-    Page<Music> searchMusic(String condition, String source, Integer pageNum, Integer pageSize);
+    Page<Song> searchMusic(String condition, String source, Integer pageNum, Integer pageSize);
 
     /**
      * 搜索音乐服务中的用户
@@ -42,4 +42,22 @@ public interface MusicService {
      * @return
      */
     Page<PlayList> searchPlayList(String q, String source, Integer pageNum, Integer pageSize);
+
+    /**
+     * 获取音乐
+     *
+     * @param source 来源
+     * @param id     id
+     * @return song
+     */
+    Song getSongBySourceAndId(String source, String id);
+
+    /**
+     * 获取 音乐的播放地址
+     *
+     * @param source 来源
+     * @param id     id
+     * @return url地址
+     */
+    String getSongUrlBySourceAndId(String source, String id);
 }

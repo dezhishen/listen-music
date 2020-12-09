@@ -1,6 +1,6 @@
 package com.dezhishen.service.impl;
 
-import com.dezhishen.domain.Music;
+import com.dezhishen.domain.Song;
 import com.dezhishen.domain.MusicUser;
 import com.dezhishen.domain.PlayList;
 import com.dezhishen.service.MusicService;
@@ -18,7 +18,7 @@ public class MusicServiceImpl implements MusicService {
     private MusicSourceProxy sourceProxy;
 
     @Override
-    public Page<Music> searchMusic(String condition, String source, Integer pageNum, Integer pageSize) {
+    public Page<Song> searchMusic(String condition, String source, Integer pageNum, Integer pageSize) {
         return null;
     }
 
@@ -30,5 +30,15 @@ public class MusicServiceImpl implements MusicService {
     @Override
     public Page<PlayList> searchPlayList(String q, String source, Integer pageNum, Integer pageSize) {
         return null;
+    }
+
+    @Override
+    public Song getSongBySourceAndId(String source, String id) {
+        return sourceProxy.getSongById(source, id);
+    }
+
+    @Override
+    public String getSongUrlBySourceAndId(String source, String id) {
+        return sourceProxy.getSongUrlById(source, id);
     }
 }

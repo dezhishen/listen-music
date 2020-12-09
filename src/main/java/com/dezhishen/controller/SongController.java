@@ -2,7 +2,7 @@ package com.dezhishen.controller;
 
 import com.dezhishen.base.BaseController;
 import com.dezhishen.base.RespEntity;
-import com.dezhishen.domain.Music;
+import com.dezhishen.domain.Song;
 import com.dezhishen.domain.MusicUser;
 import com.dezhishen.domain.PlayList;
 import com.dezhishen.service.MusicService;
@@ -16,18 +16,28 @@ import org.springframework.web.bind.annotation.*;
  * @author dezhishen
  */
 @RestController
-@RequestMapping("/music")
-public class MusicController extends BaseController {
+@RequestMapping("/song")
+public class SongController extends BaseController {
     @Autowired
     private MusicService musicService;
 
     @GetMapping("/search")
-    public RespEntity<Page<Music>> search(
+    public RespEntity<Page<Song>> search(
             @RequestParam String q,
             @RequestParam String source,
             @RequestParam(required = false, defaultValue = "1") Integer pageNum,
             @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
         return success(musicService.searchMusic(q, source, pageNum, pageSize));
+    }
+
+    @GetMapping("/getBySourceAndId")
+    public RespEntity<Song> getBySourceAndId(@RequestParam String source, @RequestParam String id) {
+        return success(musicService.getSongBySourceAndId(source, id));
+    }
+
+    @GetMapping("/getUrlBySourceAndId")
+    public RespEntity<String> getUrlBySourceAndId(@RequestParam String source, @RequestParam String id) {
+        return success(musicService.getSongUrlBySourceAndId(source, id));
     }
 
     @GetMapping("/searchMusicUser")
@@ -46,6 +56,5 @@ public class MusicController extends BaseController {
             @RequestParam(required = false, defaultValue = "1") Integer pageNum,
             @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
         return success(musicService.searchPlayList(q, source, pageNum, pageSize));
-
     }
 }

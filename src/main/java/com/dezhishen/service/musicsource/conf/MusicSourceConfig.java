@@ -4,7 +4,9 @@ package com.dezhishen.service.musicsource.conf;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -14,7 +16,8 @@ import java.util.Map;
  */
 @Getter
 @Setter
-@ConfigurationProperties(prefix = "music-source")
+@ConfigurationProperties(prefix = "music-server")
+@Configuration
 public class MusicSourceConfig {
-    private Map<String, MusicSourceProperties> properties;
+    private Map<String, MusicSourceProperties> sources = new HashMap<>();
 }

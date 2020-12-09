@@ -19,6 +19,14 @@ public class MusicException extends RuntimeException {
         this(RespCode.PARAM_ERROR, message);
     }
 
+    public MusicException(String message, String... args) {
+        this(String.format(message, args));
+    }
+
+
+    public MusicException(int code, String message, String... args) {
+        this(code, String.format(message, args));
+    }
 
     public MusicException(int code, String message) {
         super(message);
