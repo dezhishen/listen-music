@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.dezhishen</groupId>
-    <artifactId>listen-music-together</artifactId>
+    <artifactId>listen-music</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>listen-music-together</name>
-    <description>listen-music-together</description>
+    <name>listen-music</name>
+    <description>listen-music</description>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>

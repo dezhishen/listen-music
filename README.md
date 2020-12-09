@@ -1,8 +1,9 @@
-# listen-music-together
+# listen-music
 **注意:本项目仅供学习和研究使用,使用本项目造成任何后果本人概不负责**
 
-一起听歌,一起嗨皮
-本项目作为一起听歌的后端项目
+本项目作为跨平台听歌的后端项目
+
+
 ## 简述
 * 项目基于springboot进行开发,与外界交互使用http接口和websocket和外部交互
 * 底层直接用redis存储
@@ -54,7 +55,6 @@
 ## 项目依赖
 * [NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi)
 * [QQMusicApi](https://github.com/jsososo/QQMusicApi)
-* [MiguMusicApi](https://github.com/JumpAlang/MiguMusicApi)
 * [MiguMusicApi](https://github.com/jsososo/MiguMusicApi)
 
 
