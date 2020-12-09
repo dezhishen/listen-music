@@ -1,8 +1,8 @@
 package com.dezhishen.service.impl;
 
-import com.dezhishen.domain.Song;
 import com.dezhishen.domain.MusicUser;
 import com.dezhishen.domain.PlayList;
+import com.dezhishen.domain.Song;
 import com.dezhishen.service.MusicService;
 import com.dezhishen.service.musicsource.MusicSourceProxy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,18 +18,18 @@ public class MusicServiceImpl implements MusicService {
     private MusicSourceProxy sourceProxy;
 
     @Override
-    public Page<Song> searchMusic(String condition, String source, Integer pageNum, Integer pageSize) {
-        return null;
+    public Page<Song> searchSong(String q, String source, Integer pageNum, Integer pageSize) {
+        return sourceProxy.searchSong(q, source, pageNum, pageSize);
     }
 
     @Override
     public Page<MusicUser> searchMusicUser(String q, String source, Integer pageNum, Integer pageSize) {
-        return null;
+        return sourceProxy.searchMusicUser(q, source, pageNum, pageSize);
     }
 
     @Override
     public Page<PlayList> searchPlayList(String q, String source, Integer pageNum, Integer pageSize) {
-        return null;
+        return sourceProxy.searchPlayList(q, source, pageNum, pageSize);
     }
 
     @Override

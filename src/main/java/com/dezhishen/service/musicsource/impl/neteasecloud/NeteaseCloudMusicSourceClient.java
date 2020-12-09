@@ -1,12 +1,19 @@
 package com.dezhishen.service.musicsource.impl.neteasecloud;
 
+import com.dezhishen.domain.MusicUser;
+import com.dezhishen.domain.PlayList;
 import com.dezhishen.domain.Song;
 import com.dezhishen.service.musicsource.AbstractMusicSourceTemplate;
 import com.dezhishen.service.musicsource.constant.MusicSources;
+import com.dezhishen.service.musicsource.util.CovertUtil;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,6 +35,8 @@ public class NeteaseCloudMusicSourceClient extends AbstractMusicSourceTemplate {
     @Getter
     private static class NeteaseCloudMusics {
         private List<NeteaseCloudSong> songs;
+        private Long songCount;
+        private Boolean hasMore;
 
     }
 
@@ -38,10 +47,8 @@ public class NeteaseCloudMusicSourceClient extends AbstractMusicSourceTemplate {
             return null;
         }
         NeteaseCloudSong music = resp.getSongs().get(0);
-        Song result = new Song();
+        Song result = CovertUtil.neteaseCloudSong2Song(music);
         result.setSource(getSource());
-        result.setName(music.getName());
-        result.setId(music.getId());
         result.setUrl(getSongUrlById(id));
         return result;
     }
@@ -59,5 +66,38 @@ public class NeteaseCloudMusicSourceClient extends AbstractMusicSourceTemplate {
             return null;
         }
         return resp.getData().get(0).getUrl();
+    }
+
+    @Getter
+    @Setter
+    private static class SearchSongResp {
+        private int code;
+        private NeteaseCloudMusics result;
+    }
+
+    @Override
+    public Page<Song> searchSong(String q, Integer pageNum, Integer pageSize) {
+        SearchSongResp resp = restTemplate.getForObject(getUri() + "/search?keywords=" + q + "&offset=" + (pageNum - 1) * pageSize + "&limit=" + pageNum * pageSize, SearchSongResp.class);
+        if (resp == null || resp.getResult() == null) {
+            return new PageImpl<>(new ArrayList<>());
+        }
+        List<Song> content = new ArrayList<>();
+        if (resp.getResult().getSongs() != null) {
+            for (NeteaseCloudSong song : resp.getResult().getSongs()) {
+                Song e = CovertUtil.neteaseCloudSong2Song(song);
+                content.add(e);
+            }
+        }
+        return new PageImpl<>(content, PageRequest.of(pageNum, pageSize), resp.getResult().getSongCount());
+    }
+
+    @Override
+    public Page<MusicUser> searchMusicUser(String q, String source, Integer pageNum, Integer pageSize) {
+        return null;
+    }
+
+    @Override
+    public Page<PlayList> searchPlayList(String q, String source, Integer pageNum, Integer pageSize) {
+        return null;
     }
 }

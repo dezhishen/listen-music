@@ -27,7 +27,7 @@ public class SongController extends BaseController {
             @RequestParam String source,
             @RequestParam(required = false, defaultValue = "1") Integer pageNum,
             @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
-        return success(musicService.searchMusic(q, source, pageNum, pageSize));
+        return success(musicService.searchSong(q, source, pageNum, pageSize));
     }
 
     @GetMapping("/getBySourceAndId")

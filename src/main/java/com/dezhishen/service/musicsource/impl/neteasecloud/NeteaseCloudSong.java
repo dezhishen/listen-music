@@ -20,7 +20,7 @@ public class NeteaseCloudSong {
      */
     @Getter
     @Setter
-    public class Artist {
+    public static class Artist {
         private int id;
         private String name;
     }
@@ -32,7 +32,7 @@ public class NeteaseCloudSong {
      */
     @Getter
     @Setter
-    public class Album {
+    public static class Album {
         private String name;
         private int id;
     }

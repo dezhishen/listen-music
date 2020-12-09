@@ -1,10 +1,13 @@
 package com.dezhishen.service.musicsource;
 
 import com.dezhishen.base.RespCode;
+import com.dezhishen.domain.MusicUser;
+import com.dezhishen.domain.PlayList;
 import com.dezhishen.domain.Song;
 import com.dezhishen.exception.MusicException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -21,7 +24,7 @@ import java.util.Map;
 @Slf4j
 public class MusicSourceProxy {
     /**
-     * 只作为注入容器,不直接使用,请直接使用 templateMap
+     * 只作为注入容器,不直接使用,请直接使用 _templateMaps
      */
     @Autowired
     private List<AbstractMusicSourceTemplate> templates;
@@ -73,5 +76,17 @@ public class MusicSourceProxy {
 
     public String getSongUrlById(String source, String id) {
         return getTemplate(source).getSongUrlById(id);
+    }
+
+    public Page<Song> searchSong(String q, String source, Integer pageNum, Integer pageSize) {
+        return getTemplate(source).searchSong(q, pageNum, pageSize);
+    }
+
+    public Page<MusicUser> searchMusicUser(String q, String source, Integer pageNum, Integer pageSize) {
+        return getTemplate(source).searchMusicUser(q, source, pageNum, pageSize);
+    }
+
+    public Page<PlayList> searchPlayList(String q, String source, Integer pageNum, Integer pageSize) {
+        return getTemplate(source).searchPlayList(q, source, pageNum, pageSize);
     }
 }

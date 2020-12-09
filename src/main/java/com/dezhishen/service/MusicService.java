@@ -20,7 +20,7 @@ public interface MusicService {
      * @param pageSize
      * @return
      */
-    Page<Song> searchMusic(String condition, String source, Integer pageNum, Integer pageSize);
+    Page<Song> searchSong(String condition, String source, Integer pageNum, Integer pageSize);
 
     /**
      * 搜索音乐服务中的用户
