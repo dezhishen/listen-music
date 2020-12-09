@@ -7,3 +7,7 @@ music-server:
   sources:
     NeteaseCloud:
       uri: ${NETEASE_CLOUD_URI:http://localhost:3000}
+    MiguMusic:
+      uri: ${MIGU_MUSIC_URI:http://localhost:3400}
+    QqMusic:
+      uri:${QQ_MUSIC_URI:http://localhost:3300}

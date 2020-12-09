@@ -1,0 +1,34 @@
+version: "3"
+services:
+  redis:
+    restart: always
+    image: redis
+    environment:
+      - TZ=Asia/Shanghai
+    command: redis-server
+    volumes:
+      #redis数据挂载到本地
+      - /docker_data/redis/data:/data
+  netease-cloud:
+    restart: always
+    image: binaryify/netease_cloud_music_api
+  qq-music-api:
+    restart: always
+    image: ???
+  migu-music-api:
+    restart: always
+    image: ???
+  music:
+    image: listen-music-together
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - NETEASE_CLOUD_URI=http://netease-cloud:3000
+      - QQ_MUSIC_URI=http://qq-music-api:3300
+      - MIGU_MUSIC_URI=http://migu-music-api :3400
+    restart: always
+  music-web:
+    image: listen-music-together-web
+    restart: always
+    ports:
+      - 8080:80
