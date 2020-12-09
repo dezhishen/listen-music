@@ -7,4 +7,6 @@ package com.dezhishen.service.musicsource.constant;
  */
 public class MusicSources {
     public static final String NETEASE_CLOUD = "NeteaseCloud";
+    public static final String QQ_MUSIC = "QqMusic";
+    public static final String MIGU_MUSIC = "MiguMusic";
 }

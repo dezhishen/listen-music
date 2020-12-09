@@ -3,6 +3,8 @@ package com.dezhishen.service.musicsource.util;
 import com.dezhishen.domain.Album;
 import com.dezhishen.domain.Artist;
 import com.dezhishen.domain.Song;
+import com.dezhishen.service.musicsource.constant.MusicSources;
+import com.dezhishen.service.musicsource.constant.QqMusicSong;
 import com.dezhishen.service.musicsource.impl.neteasecloud.NeteaseCloudSong;
 
 import java.util.ArrayList;
@@ -17,17 +19,25 @@ public class CovertUtil {
     /**
      * 网易云返回对象转换为系统内部对象
      *
-     * @param song 外部对象
+     * @param source 外部对象
      * @return 内部对象
      */
-    public static Song neteaseCloudSong2Song(NeteaseCloudSong song) {
-        if (song == null) {
+    public static Song neteaseCloudSong2Song(NeteaseCloudSong source) {
+        if (source == null) {
             return null;
         }
         Song result = new Song();
-        result.setName(song.getName());
-        result.setId(song.getId());
-        result.setAlbum(neteaseAlbum2Album(song.getAlbum()));
+        result.setName(source.getName());
+        result.setId(source.getId());
+        result.setAlbum(neteaseAlbum2Album(source.getAlbum()));
+        result.setSource(MusicSources.NETEASE_CLOUD);
+        if (source.getArtists() != null && !source.getArtists().isEmpty()) {
+            List<Artist> artists = new ArrayList<>();
+            for (NeteaseCloudSong.Artist artist : source.getArtists()) {
+                artists.add(neteaseArtist2Artist(artist));
+            }
+            result.setArtists(artists);
+        }
         return result;
     }
 
@@ -38,8 +48,8 @@ public class CovertUtil {
         Artist result = new Artist();
         result.setId(source.getId());
         result.setName(source.getName());
-        result.setImg1v1(source.getImg1v1());
-        result.setImg1v1Url(source.getImg1v1Url());
+//        result.setImg1v1(source.getImg1v1());
+//        result.setImg1v1Url(source.getImg1v1Url());
         result.setPicUrl(source.getPicUrl());
         return result;
     }
@@ -64,6 +74,38 @@ public class CovertUtil {
         result.setStatus(source.getStatus());
         result.setPicId(source.getPicId());
         result.setMark(source.getMark());
+        return result;
+    }
+
+    /**
+     * qq音乐 歌曲对象转为系统 歌曲对象
+     *
+     * @param source 源
+     * @return 转换后的结果
+     */
+    public static Song qqMusicSong2Song(QqMusicSong source) {
+        Song result = new Song();
+        result.setId(source.getMid());
+        result.setName(source.getName());
+        result.setSource(MusicSources.QQ_MUSIC);
+        if (source.getSingers() != null && !source.getSingers().isEmpty()) {
+            List<Artist> artists = new ArrayList<>();
+            for (QqMusicSong.Artist singer : source.getSingers()) {
+                artists.add(qqMusicSinger2Artist(singer));
+            }
+            result.setArtists(artists);
+        }
+
+        return result;
+    }
+
+    public static Artist qqMusicSinger2Artist(QqMusicSong.Artist source) {
+        if (source == null) {
+            return null;
+        }
+        Artist result = new Artist();
+        result.setId(source.getId());
+        result.setName(source.getName());
         return result;
     }
 }

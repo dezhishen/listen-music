@@ -1,6 +1,5 @@
 package com.dezhishen.domain;
 
-import com.dezhishen.service.musicsource.impl.neteasecloud.NeteaseCloudSong;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,7 +23,7 @@ public class Song {
     private int copyrightId;
     private String disc;
     private int no;
-    private List<NeteaseCloudSong.Artist> artists;
+    private List<Artist> artists;
     private Album album;
     private String url;
     private Long lastUpdateTimestamp;
