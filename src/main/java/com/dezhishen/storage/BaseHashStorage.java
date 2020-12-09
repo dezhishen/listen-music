@@ -17,12 +17,16 @@ import java.util.List;
 public abstract class BaseHashStorage<T extends BaseDomain> {
     protected abstract String getCacheKey();
 
+    protected String genUUID() {
+        return UUIDUtil.genUUID();
+    }
+
     @Autowired
     private RedisTemplate redisTemplate;
 
     public T save(T t) {
         if (StringUtils.isEmpty(t.getId())) {
-            t.setId(UUIDUtil.genUUID());
+            t.setId(genUUID());
         }
         redisTemplate.opsForHash().put(getCacheKey(), t.getId(), t);
         return t;

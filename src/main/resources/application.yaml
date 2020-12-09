@@ -3,6 +3,9 @@ spring:
     host: ${REDIS_HOST:127.0.0.1}
     port: ${REDIS_PORT:6379}
     password: ${REDIS_PASSWORD}
+  session:
+    store-type: redis
+    redis.namespace: session
 music-server:
   sources:
     NeteaseCloud:
