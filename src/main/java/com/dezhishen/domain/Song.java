@@ -25,7 +25,7 @@ public class Song {
     private String disc;
     private int no;
     private List<NeteaseCloudSong.Artist> artists;
-    private NeteaseCloudSong.Album album;
+    private Album album;
     private String url;
     private Long lastUpdateTimestamp;
 

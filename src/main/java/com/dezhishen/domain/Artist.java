@@ -11,6 +11,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Artist {
-    private int id;
+    private String id;
     private String name;
+    private String picUrl;
+    private String img1v1Url;
+    private int img1v1;
+    private String trans;
 }

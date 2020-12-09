@@ -3,6 +3,7 @@ package com.dezhishen.service.musicsource.impl.neteasecloud;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,8 +22,12 @@ public class NeteaseCloudSong {
     @Getter
     @Setter
     public static class Artist {
-        private int id;
+        private String id;
         private String name;
+        private String picUrl;
+        private String img1v1Url;
+        private int img1v1;
+        private String trans;
     }
 
     /**
@@ -35,6 +40,13 @@ public class NeteaseCloudSong {
     public static class Album {
         private String name;
         private int id;
+        private List<Artist> artists;
+        private Date publishTime;
+        private int size;
+        private int copyrightId;
+        private int status;
+        private int picId;
+        private int mark;
     }
 
     private int id;
