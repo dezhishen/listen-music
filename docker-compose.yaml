@@ -19,7 +19,7 @@ services:
     restart: always
     image: ???
   music:
-    image: listen-music-together
+    image: listen-music
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
@@ -28,7 +28,7 @@ services:
       - MIGU_MUSIC_URI=http://migu-music-api :3400
     restart: always
   music-web:
-    image: listen-music-together-web
+    image: listen-music-web
     restart: always
     ports:
       - 8080:80
