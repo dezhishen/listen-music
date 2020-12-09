@@ -26,7 +26,7 @@ public class NeteaseCloudSong {
         private String name;
         private String picUrl;
         private String img1v1Url;
-        private int img1v1;
+        private long img1v1;
         private String trans;
     }
 
@@ -39,14 +39,14 @@ public class NeteaseCloudSong {
     @Setter
     public static class Album {
         private String name;
-        private int id;
+        private long id;
         private List<Artist> artists;
         private Date publishTime;
-        private int size;
-        private int copyrightId;
+        private long size;
+        private long copyrightId;
         private int status;
-        private int picId;
-        private int mark;
+        private long picId;
+        private long mark;
     }
 
     private int id;

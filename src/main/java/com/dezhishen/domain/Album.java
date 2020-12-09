@@ -14,13 +14,13 @@ import java.util.List;
 @Getter
 @Setter
 public class Album {
-    private int id;
     private String name;
+    private long id;
     private List<Artist> artists;
     private Date publishTime;
-    private int size;
-    private int copyrightId;
+    private long size;
+    private long copyrightId;
     private int status;
-    private int picId;
-    private int mark;
+    private long picId;
+    private long mark;
 }
