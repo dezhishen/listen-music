@@ -36,7 +36,7 @@
     * NeteaseCloudMusicApi
         * [x] 获取单个歌曲信息
         * [x] 获取单个歌曲播放地址
-        * [ ] 搜索歌曲
+        * [x] 搜索歌曲
         * [ ] 搜索歌单
         * [ ] 搜索用户
     * QQMusicApi
