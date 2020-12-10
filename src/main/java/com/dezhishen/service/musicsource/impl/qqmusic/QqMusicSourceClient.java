@@ -5,14 +5,18 @@ import com.dezhishen.domain.PlayList;
 import com.dezhishen.domain.Song;
 import com.dezhishen.service.musicsource.AbstractMusicSourceTemplate;
 import com.dezhishen.service.musicsource.constant.MusicSources;
-import com.dezhishen.service.musicsource.constant.QqMusicSong;
+import com.dezhishen.service.musicsource.impl.neteasecloud.NeteaseCloudSong;
 import com.dezhishen.service.musicsource.util.CovertUtil;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -61,9 +65,42 @@ public class QqMusicSourceClient extends AbstractMusicSourceTemplate {
         return resp.getData().get(id);
     }
 
+
+    @Setter
+    @Getter
+    private static class PageResp<T> {
+        private List<T> list;
+        private long total;
+    }
+
+
+    @Setter
+    @Getter
+    private static class SearchSongPageResp extends PageResp<QqMusicSearchSong> {
+
+    }
+
+    @Setter
+    @Getter
+    private static class SearchSongResp {
+        private int result;
+        private SearchSongPageResp data;
+    }
+
     @Override
     public Page<Song> searchSong(String q, Integer pageNum, Integer pageSize) {
-        return null;
+        SearchSongResp resp = restTemplate.getForObject(getUri() + "/search?key=" + q + "&pageNo=" + pageNum + "&pageSize=" + pageSize, SearchSongResp.class);
+        if (resp == null || resp.getData() == null) {
+            return new PageImpl<>(new ArrayList<>());
+        }
+        List<Song> content = new ArrayList<>();
+        if (resp.getData().getList() != null) {
+            for (QqMusicSearchSong song : resp.getData().getList()) {
+                Song e = CovertUtil.qqMusicSearchSong2Song(song);
+                content.add(e);
+            }
+        }
+        return new PageImpl<>(content, PageRequest.of(pageNum, pageSize), resp.getData().getTotal());
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.dezhishen.service.musicsource.constant;
+package com.dezhishen.service.musicsource.impl.qqmusic;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,14 +11,6 @@ import java.util.List;
 @Getter
 @Setter
 public class QqMusicSong {
-    @Getter
-    @Setter
-    public static class Artist {
-        private String id;
-        private String name;
-        private String mid;
-    }
-
     @Setter
     @Getter
     public static class Album {
@@ -33,6 +25,6 @@ public class QqMusicSong {
     private String name;
     private String url;
     private String lyric;
-    private List<Artist> singers;
+    private List<QqMusicArtist> singers;
     private Album album;
 }

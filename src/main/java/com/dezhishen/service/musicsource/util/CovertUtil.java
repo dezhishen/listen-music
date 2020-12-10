@@ -4,7 +4,9 @@ import com.dezhishen.domain.Album;
 import com.dezhishen.domain.Artist;
 import com.dezhishen.domain.Song;
 import com.dezhishen.service.musicsource.constant.MusicSources;
-import com.dezhishen.service.musicsource.constant.QqMusicSong;
+import com.dezhishen.service.musicsource.impl.qqmusic.QqMusicArtist;
+import com.dezhishen.service.musicsource.impl.qqmusic.QqMusicSearchSong;
+import com.dezhishen.service.musicsource.impl.qqmusic.QqMusicSong;
 import com.dezhishen.service.musicsource.impl.neteasecloud.NeteaseCloudSong;
 
 import java.util.ArrayList;
@@ -90,7 +92,7 @@ public class CovertUtil {
         result.setSource(MusicSources.QQ_MUSIC);
         if (source.getSingers() != null && !source.getSingers().isEmpty()) {
             List<Artist> artists = new ArrayList<>();
-            for (QqMusicSong.Artist singer : source.getSingers()) {
+            for (QqMusicArtist singer : source.getSingers()) {
                 artists.add(qqMusicSinger2Artist(singer));
             }
             result.setArtists(artists);
@@ -99,7 +101,29 @@ public class CovertUtil {
         return result;
     }
 
-    public static Artist qqMusicSinger2Artist(QqMusicSong.Artist source) {
+    /**
+     * qq音乐 歌曲对象转为系统 歌曲对象
+     *
+     * @param source 源
+     * @return 转换后的结果
+     */
+    public static Song qqMusicSearchSong2Song(QqMusicSearchSong source) {
+        Song result = new Song();
+        result.setId(source.getSongmid());
+        result.setName(source.getSongname());
+        result.setSource(MusicSources.QQ_MUSIC);
+        if (source.getSingers() != null && !source.getSingers().isEmpty()) {
+            List<Artist> artists = new ArrayList<>();
+            for (QqMusicArtist singer : source.getSingers()) {
+                artists.add(qqMusicSinger2Artist(singer));
+            }
+            result.setArtists(artists);
+        }
+
+        return result;
+    }
+
+    public static Artist qqMusicSinger2Artist(QqMusicArtist source) {
         if (source == null) {
             return null;
         }

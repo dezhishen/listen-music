@@ -18,8 +18,9 @@ import java.io.IOException;
  * @author dezhishen
  */
 @Service
-public class TokenHandlerFilter implements Filter {
+public class BiscuitHandlerFilter implements Filter {
     private static final String HEAD_NAME = SessionKey.BISCUIT;
+    private static final String PARAM_NAME = "_" + SessionKey.BISCUIT + "_";
     @Autowired
     private BiscuitService biscuitService;
 
@@ -27,6 +28,9 @@ public class TokenHandlerFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         String biscuitId = request.getHeader(HEAD_NAME);
+        if (StringUtils.isEmpty(biscuitId)) {
+            biscuitId = request.getParameter(PARAM_NAME);
+        }
         if (StringUtils.isEmpty(biscuitId)) {
             ((HttpServletResponse) response).sendError(HttpServletResponse.SC_UNAUTHORIZED, "Not Allowed to Access.biscuit is null");
             return;
