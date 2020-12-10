@@ -13,6 +13,8 @@ import lombok.Setter;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 @Service
 public class QqMusicSourceClient extends AbstractMusicSourceTemplate {
     @Override
@@ -22,14 +24,14 @@ public class QqMusicSourceClient extends AbstractMusicSourceTemplate {
 
     @Setter
     @Getter
-    private static class SongResp {
-        @Setter
-        @Getter
-        private static final class Resp {
-            @JsonProperty("track_info")
-            private QqMusicSong trackInfo;
-        }
+    private static final class Resp {
+        @JsonProperty("track_info")
+        private QqMusicSong trackInfo;
+    }
 
+    @Setter
+    @Getter
+    private static class SongResp {
         private Resp data;
     }
 
@@ -39,12 +41,24 @@ public class QqMusicSourceClient extends AbstractMusicSourceTemplate {
         if (resp == null || resp.getData() == null || resp.getData().getTrackInfo() == null) {
             return null;
         }
-        return CovertUtil.qqMusicSong2Song(resp.getData().getTrackInfo());
+        Song song = CovertUtil.qqMusicSong2Song(resp.getData().getTrackInfo());
+        song.setUrl(getSongUrlById(id));
+        return song;
+    }
+
+    @Getter
+    @Setter
+    private static class UrlResp {
+        private Map<String, String> data;
     }
 
     @Override
     public String getSongUrlById(String id) {
-        return null;
+        UrlResp resp = restTemplate.getForObject(getUri() + "/song/urls?id=" + id, UrlResp.class);
+        if (resp == null || resp.getData() == null) {
+            return null;
+        }
+        return resp.getData().get(id);
     }
 
     @Override
