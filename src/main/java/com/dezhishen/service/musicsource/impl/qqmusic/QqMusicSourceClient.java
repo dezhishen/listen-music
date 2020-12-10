@@ -23,20 +23,23 @@ public class QqMusicSourceClient extends AbstractMusicSourceTemplate {
     @Setter
     @Getter
     private static class SongResp {
-        @JsonProperty("track_info")
-        private QqMusicSong trackInfo;
+        @Setter
+        @Getter
+        private static final class Resp {
+            @JsonProperty("track_info")
+            private QqMusicSong trackInfo;
+        }
+
+        private Resp data;
     }
 
     @Override
     public Song getSongById(String id) {
         SongResp resp = restTemplate.getForObject(getUri() + "/song?songmid=" + id, SongResp.class);
-        if (resp == null) {
+        if (resp == null || resp.getData() == null || resp.getData().getTrackInfo() == null) {
             return null;
         }
-        if (resp.getTrackInfo() == null) {
-            return null;
-        }
-        return CovertUtil.qqMusicSong2Song(resp.getTrackInfo());
+        return CovertUtil.qqMusicSong2Song(resp.getData().getTrackInfo());
     }
 
     @Override
