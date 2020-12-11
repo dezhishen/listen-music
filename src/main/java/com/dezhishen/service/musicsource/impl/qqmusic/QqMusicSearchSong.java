@@ -15,4 +15,7 @@ public class QqMusicSearchSong {
     private String songmid;
     private String songname;
     private List<QqMusicArtist> singers;
+
+    public QqMusicSearchSong() {
+    }
 }

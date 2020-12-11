@@ -28,15 +28,21 @@ public class QqMusicSourceClient extends AbstractMusicSourceTemplate {
 
     @Setter
     @Getter
-    private static final class Resp {
+    public static final class Resp {
         @JsonProperty("track_info")
         private QqMusicSong trackInfo;
+
+        public Resp() {
+        }
     }
 
     @Setter
     @Getter
-    private static class SongResp {
+    public static class SongResp {
         private Resp data;
+
+        public SongResp() {
+        }
     }
 
     @Override
@@ -52,8 +58,11 @@ public class QqMusicSourceClient extends AbstractMusicSourceTemplate {
 
     @Getter
     @Setter
-    private static class UrlResp {
+    public static class UrlResp {
         private Map<String, String> data;
+
+        public UrlResp() {
+        }
     }
 
     @Override
@@ -68,23 +77,30 @@ public class QqMusicSourceClient extends AbstractMusicSourceTemplate {
 
     @Setter
     @Getter
-    private static class PageResp<T> {
+    public static class PageResp<T> {
         private List<T> list;
         private long total;
+
+        public PageResp() {
+        }
     }
 
 
     @Setter
     @Getter
-    private static class SearchSongPageResp extends PageResp<QqMusicSearchSong> {
-
+    public static class SearchSongPageResp extends PageResp<QqMusicSearchSong> {
+        public SearchSongPageResp() {
+        }
     }
 
     @Setter
     @Getter
-    private static class SearchSongResp {
+    public static class SearchSongResp {
         private int result;
         private SearchSongPageResp data;
+
+        public SearchSongResp() {
+        }
     }
 
     @Override
