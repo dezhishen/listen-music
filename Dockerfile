@@ -1,6 +1,6 @@
 FROM java:8-jdk-alpine
 LABEL maintainer=https://github.com/dezhiShen
-RUN apk add --repository  https://mirrors.aliyun.com/alpine/v3.4/main/ --update curl && rm -rf /var/cache/apk/*
+#RUN apk add --repository  https://mirrors.aliyun.com/alpine/v3.4/main/ --update curl && rm -rf /var/cache/apk/*
 VOLUME /tmp
 ENV TZ=Asia/Shanghai \
     LANG=zh_CN.UTF-8 \
