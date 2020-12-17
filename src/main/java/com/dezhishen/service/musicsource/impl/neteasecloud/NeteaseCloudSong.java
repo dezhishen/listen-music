@@ -28,6 +28,9 @@ public class NeteaseCloudSong {
         private String img1v1Url;
         private long img1v1;
         private String trans;
+
+        public Artist() {
+        }
     }
 
     /**
@@ -47,6 +50,10 @@ public class NeteaseCloudSong {
         private int status;
         private long picId;
         private long mark;
+
+        public Album() {
+
+        }
     }
 
     private int id;
@@ -61,4 +68,6 @@ public class NeteaseCloudSong {
     private List<Artist> artists;
     private Album album;
 
+    public NeteaseCloudSong() {
+    }
 }

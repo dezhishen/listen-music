@@ -15,4 +15,7 @@ import java.util.List;
 public class NeteaseCloudUrl {
     private int id;
     private String url;
+
+    public NeteaseCloudUrl() {
+    }
 }

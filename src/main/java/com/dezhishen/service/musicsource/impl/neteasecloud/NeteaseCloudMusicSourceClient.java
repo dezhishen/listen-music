@@ -33,11 +33,13 @@ public class NeteaseCloudMusicSourceClient extends AbstractMusicSourceTemplate {
      */
     @Setter
     @Getter
-    private static class NeteaseCloudMusics {
+    public static class NeteaseCloudMusics {
         private List<NeteaseCloudSong> songs;
         private Long songCount;
         private Boolean hasMore;
 
+        public NeteaseCloudMusics() {
+        }
     }
 
     @Override
@@ -55,8 +57,11 @@ public class NeteaseCloudMusicSourceClient extends AbstractMusicSourceTemplate {
 
     @Getter
     @Setter
-    private static class NeteaseCloudUrlResp {
+    public static class NeteaseCloudUrlResp {
         private List<NeteaseCloudUrl> data;
+
+        public NeteaseCloudUrlResp() {
+        }
     }
 
     @Override
@@ -70,9 +75,12 @@ public class NeteaseCloudMusicSourceClient extends AbstractMusicSourceTemplate {
 
     @Getter
     @Setter
-    private static class SearchSongResp {
+    public static class SearchSongResp {
         private int code;
         private NeteaseCloudMusics result;
+
+        public SearchSongResp() {
+        }
     }
 
     @Override

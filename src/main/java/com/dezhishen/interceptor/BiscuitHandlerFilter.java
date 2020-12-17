@@ -23,10 +23,16 @@ public class BiscuitHandlerFilter implements Filter {
     private static final String PARAM_NAME = "_" + SessionKey.BISCUIT + "_";
     @Autowired
     private BiscuitService biscuitService;
+    @Autowired
+    private BiscuitFilterConfig filterConfig;
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
+        if (filterConfig.getIgnore().contains(request.getRequestURI())) {
+            filterChain.doFilter(servletRequest, response);
+            return;
+        }
         String biscuitId = request.getHeader(HEAD_NAME);
         if (StringUtils.isEmpty(biscuitId)) {
             biscuitId = request.getParameter(PARAM_NAME);

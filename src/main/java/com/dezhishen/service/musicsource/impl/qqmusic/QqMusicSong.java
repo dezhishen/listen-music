@@ -17,6 +17,9 @@ public class QqMusicSong {
         private String id;
         private String mid;
         private String name;
+
+        public Album() {
+        }
     }
 
     private String id;
@@ -27,4 +30,7 @@ public class QqMusicSong {
     private String lyric;
     private List<QqMusicArtist> singers;
     private Album album;
+
+    public QqMusicSong() {
+    }
 }
