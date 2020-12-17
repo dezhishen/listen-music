@@ -59,7 +59,7 @@ public class QqMusicSourceClient extends AbstractMusicSourceTemplate {
     @Getter
     @Setter
     public static class UrlResp {
-        private Map<String, String> data;
+        private String data;
 
         public UrlResp() {
         }
@@ -67,11 +67,11 @@ public class QqMusicSourceClient extends AbstractMusicSourceTemplate {
 
     @Override
     public String getSongUrlById(String id) {
-        UrlResp resp = restTemplate.getForObject(getUri() + "/song/urls?id=" + id, UrlResp.class);
+        UrlResp resp = restTemplate.getForObject(getUri() + "/song/url?id=" + id, UrlResp.class);
         if (resp == null || resp.getData() == null) {
             return null;
         }
-        return resp.getData().get(id);
+        return resp.getData();
     }
 
 
