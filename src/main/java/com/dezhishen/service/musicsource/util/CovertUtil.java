@@ -4,10 +4,10 @@ import com.dezhishen.domain.Album;
 import com.dezhishen.domain.Artist;
 import com.dezhishen.domain.Song;
 import com.dezhishen.service.musicsource.constant.MusicSources;
+import com.dezhishen.service.musicsource.impl.neteasecloud.NeteaseCloudSong;
 import com.dezhishen.service.musicsource.impl.qqmusic.QqMusicArtist;
 import com.dezhishen.service.musicsource.impl.qqmusic.QqMusicSearchSong;
 import com.dezhishen.service.musicsource.impl.qqmusic.QqMusicSong;
-import com.dezhishen.service.musicsource.impl.neteasecloud.NeteaseCloudSong;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,12 +33,16 @@ public class CovertUtil {
         result.setId(source.getId());
         result.setAlbum(neteaseAlbum2Album(source.getAlbum()));
         result.setSource(MusicSources.NETEASE_CLOUD);
+        result.setFee(source.getFee());
         if (source.getArtists() != null && !source.getArtists().isEmpty()) {
             List<Artist> artists = new ArrayList<>();
             for (NeteaseCloudSong.Artist artist : source.getArtists()) {
                 artists.add(neteaseArtist2Artist(artist));
             }
             result.setArtists(artists);
+        }
+        if (result.getFee() == 1 || result.getFee() == 8) {
+            result.setFree(true);
         }
         return result;
     }

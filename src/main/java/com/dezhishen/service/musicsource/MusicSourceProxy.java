@@ -4,7 +4,9 @@ import com.dezhishen.base.RespCode;
 import com.dezhishen.domain.MusicUser;
 import com.dezhishen.domain.PlayList;
 import com.dezhishen.domain.Song;
+import com.dezhishen.domain.MusicSource;
 import com.dezhishen.exception.MusicException;
+import com.dezhishen.service.MusicSourceService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -31,6 +33,9 @@ public class MusicSourceProxy {
 
     private Map<String, AbstractMusicSourceTemplate> _templateMaps = new HashMap<>();
 
+    @Autowired
+    private MusicSourceService musicSourceService;
+
 
     @PostConstruct
     public void init() {
@@ -42,6 +47,11 @@ public class MusicSourceProxy {
         for (AbstractMusicSourceTemplate template : templates) {
             log.info("注册音乐服务[{}],uri:[{}]", template.getSource(), template.getSourceConfig().getUri());
             _templateMaps.put(template.getSource(), template);
+            MusicSource t = new MusicSource();
+            t.setId(template.getSource());
+            t.setUri(template.getSourceConfig().getUri());
+            t.setEnabled(template.getSourceConfig().getEnabled());
+            musicSourceService.save(t);
         }
     }
 
@@ -53,7 +63,10 @@ public class MusicSourceProxy {
      */
     protected AbstractMusicSourceTemplate getTemplate(String source) {
         if (_templateMaps.containsKey(source)) {
-            return _templateMaps.get(source);
+            if (_templateMaps.get(source).getSourceConfig().getEnabled()) {
+                return _templateMaps.get(source);
+            }
+            throw new MusicException(RespCode.EXCEPTION, "名为[%s]的音乐服务未启用,请检查配置或输入参数", source);
         }
         throw new MusicException(RespCode.EXCEPTION, "未找到名为[%s]的音乐服务,请检查配置或输入参数", source);
     }

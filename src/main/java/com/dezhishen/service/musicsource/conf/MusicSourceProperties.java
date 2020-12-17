@@ -20,4 +20,8 @@ public class MusicSourceProperties {
      * 其他属性
      */
     private Map<String, String> properties;
+    /**
+     * 是否启用
+     */
+    private Boolean enabled;
 }

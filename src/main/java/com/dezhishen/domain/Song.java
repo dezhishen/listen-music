@@ -27,6 +27,10 @@ public class Song {
     private Album album;
     private String url;
     private Long lastUpdateTimestamp;
+    /**
+     * 是否免费
+     */
+    private boolean free;
 
     public void setId(Object id) {
         if (id == null) {

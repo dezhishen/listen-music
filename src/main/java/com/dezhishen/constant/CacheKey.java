@@ -36,4 +36,8 @@ public class CacheKey {
      * 饼干
      */
     public static final String BISCUIT = "_biscuit";
+    /**
+     * 源
+     */
+    public static final String MUSIC_SOURCE = "_music_source";
 }

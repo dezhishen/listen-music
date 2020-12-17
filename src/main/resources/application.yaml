@@ -9,8 +9,11 @@ spring:
 music-server:
   sources:
     NeteaseCloud:
+      enabled: true
       uri: ${NETEASE_CLOUD_URI:http://localhost:3000}
     MiguMusic:
+      enabled: true
       uri: ${MIGU_MUSIC_URI:http://localhost:3400}
     QqMusic:
+      enabled: false
       uri: ${QQ_MUSIC_URI:http://localhost:3300}
