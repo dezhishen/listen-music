@@ -1,8 +1,10 @@
 package com.dezhishen.service.musicsource;
 
+import com.dezhishen.domain.MusicSource;
 import com.dezhishen.domain.MusicUser;
 import com.dezhishen.domain.PlayList;
 import com.dezhishen.domain.Song;
+import com.dezhishen.service.MusicSourceService;
 import com.dezhishen.service.musicsource.conf.MusicSourceConfig;
 import com.dezhishen.service.musicsource.conf.MusicSourceProperties;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,8 @@ import javax.annotation.Resource;
  */
 public abstract class AbstractMusicSourceTemplate {
     @Autowired
-    protected MusicSourceConfig config;
+    private MusicSourceService musicSourceService;
+
     @Resource(name = "MusicSourceTemplate")
     protected RestTemplate restTemplate;
     @Autowired
@@ -36,8 +39,8 @@ public abstract class AbstractMusicSourceTemplate {
     }
 
 
-    protected MusicSourceProperties getSourceConfig() {
-        return config.getSources().get(getSource());
+    protected MusicSource getSourceConfig() {
+        return musicSourceService.get(getSource());
     }
 
     /**
@@ -55,6 +58,12 @@ public abstract class AbstractMusicSourceTemplate {
      */
     public abstract Song getSongById(String id);
 
+    /**
+     * 根据id获取播放地址
+     *
+     * @param id
+     * @return
+     */
     public abstract String getSongUrlById(String id);
 
     /**

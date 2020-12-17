@@ -20,4 +20,8 @@ import java.util.Map;
 @Configuration
 public class MusicSourceConfig {
     private Map<String, MusicSourceProperties> sources = new HashMap<>();
+
+    public MusicSourceProperties getSource(String key) {
+        return sources.get(key);
+    }
 }
