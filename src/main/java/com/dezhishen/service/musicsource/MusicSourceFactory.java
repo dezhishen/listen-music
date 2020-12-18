@@ -29,9 +29,11 @@ public class MusicSourceFactory {
     private MusicSourceConfig musicSourceConfig;
     @Autowired
     private MusicSourceService musicSourceService;
+    @Autowired
+    private MusicSourceProxy proxy;
 
     @PostConstruct
-    public void buildProxy(@Autowired MusicSourceProxy proxy) {
+    public void buildProxy() {
         log.info("开始初始化MusicServer服务列表");
         if (templates == null || templates.isEmpty()) {
             log.error("可用列表为空");
