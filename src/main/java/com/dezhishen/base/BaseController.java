@@ -86,6 +86,14 @@ public class BaseController {
         return systemUserService.get(biscuit.getUserId());
     }
 
+    protected String getUserId() {
+        Biscuit biscuit = getBiscuit();
+        if (biscuit == null) {
+            return null;
+        }
+        return biscuit.getUserId();
+    }
+
     protected Biscuit getBiscuit() {
         if (RequestContextHolder.getRequestAttributes() == null) {
             return null;

@@ -26,8 +26,14 @@ public class PlayListController extends BaseController {
         return success(playListService.get(id));
     }
 
+    @GetMapping("/list")
+    public RespEntity<List<PlayList>> list() {
+        return success(playListService.list(getUserId()));
+    }
+
     @PostMapping("/save")
     public RespEntity<PlayList> save(@RequestBody PlayList playList) {
+        playList.setUserId(getBiscuit().getUserId());
         return success(playListService.save(playList));
     }
 
@@ -35,6 +41,7 @@ public class PlayListController extends BaseController {
     public RespEntity<Boolean> delete(@RequestParam String id) {
         return success(playListService.delete(id));
     }
+
 
     @Getter
     @Setter

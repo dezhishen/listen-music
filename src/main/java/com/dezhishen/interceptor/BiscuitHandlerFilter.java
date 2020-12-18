@@ -45,6 +45,7 @@ public class BiscuitHandlerFilter implements Filter {
         if (biscuit == null && "_test_".equals(biscuitId)) {
             biscuit = new Biscuit();
             biscuit.setId(biscuitId);
+            biscuit.setUserId("testUser");
             biscuitService.save(biscuit);
         }
         if (biscuit == null) {

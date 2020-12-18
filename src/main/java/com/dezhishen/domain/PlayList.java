@@ -16,6 +16,7 @@ import java.util.List;
 @Setter
 public class PlayList extends BaseDomain {
     private String id;
+    private String userId;
     private String name;
     private String description;
     private List<String> tags;

@@ -72,4 +72,12 @@ public interface PlayListService {
      * @return
      */
     boolean delete(String id);
+
+    /**
+     * 用户播放列表
+     *
+     * @param userId
+     * @return
+     */
+    List<PlayList> list(String userId);
 }
