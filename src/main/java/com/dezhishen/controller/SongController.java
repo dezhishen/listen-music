@@ -2,13 +2,12 @@ package com.dezhishen.controller;
 
 import com.dezhishen.base.BaseController;
 import com.dezhishen.base.RespEntity;
-import com.dezhishen.domain.Song;
 import com.dezhishen.domain.MusicUser;
 import com.dezhishen.domain.PlayList;
+import com.dezhishen.domain.Song;
 import com.dezhishen.service.MusicService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 /**
