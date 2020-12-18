@@ -41,7 +41,7 @@ public class CovertUtil {
             }
             result.setArtists(artists);
         }
-        if (result.getFee() == 1 || result.getFee() == 8) {
+        if (result.getFee() == 1 || result.getFee() == 8 || result.getFee() == 0) {
             result.setFree(true);
         }
         return result;

@@ -87,7 +87,7 @@ public class NeteaseCloudMusicSourceClient extends AbstractMusicSourceTemplate {
     public Page<Song> searchSong(String q, Integer pageNum, Integer pageSize) {
         SearchSongResp resp = restTemplate.getForObject(getUri() + "/search?keywords=" + q + "&offset=" + (pageNum - 1) * pageSize + "&limit=" + pageNum * pageSize, SearchSongResp.class);
         if (resp == null || resp.getResult() == null) {
-            return new PageImpl<>(new ArrayList<>());
+            return Page.empty();
         }
         List<Song> content = new ArrayList<>();
         if (resp.getResult().getSongs() != null) {
@@ -96,7 +96,7 @@ public class NeteaseCloudMusicSourceClient extends AbstractMusicSourceTemplate {
                 content.add(e);
             }
         }
-        return new PageImpl<>(content, PageRequest.of(pageNum, pageSize), resp.getResult().getSongCount());
+        return new PageImpl<>(content, PageRequest.of(pageNum - 1, pageSize), resp.getResult().getSongCount());
     }
 
     @Override

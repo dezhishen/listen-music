@@ -107,7 +107,7 @@ public class QqMusicSourceClient extends AbstractMusicSourceTemplate {
     public Page<Song> searchSong(String q, Integer pageNum, Integer pageSize) {
         SearchSongResp resp = restTemplate.getForObject(getUri() + "/search?key=" + q + "&pageNo=" + pageNum + "&pageSize=" + pageSize, SearchSongResp.class);
         if (resp == null || resp.getData() == null) {
-            return new PageImpl<>(new ArrayList<>());
+            return Page.empty();
         }
         List<Song> content = new ArrayList<>();
         if (resp.getData().getList() != null) {
@@ -116,7 +116,7 @@ public class QqMusicSourceClient extends AbstractMusicSourceTemplate {
                 content.add(e);
             }
         }
-        return new PageImpl<>(content, PageRequest.of(pageNum, pageSize), resp.getData().getTotal());
+        return new PageImpl<>(content, PageRequest.of(pageNum - 1, pageSize), resp.getData().getTotal());
     }
 
     @Override
