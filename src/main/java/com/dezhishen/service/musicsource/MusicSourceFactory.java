@@ -7,9 +7,9 @@ import com.dezhishen.service.MusicSourceService;
 import com.dezhishen.service.musicsource.conf.MusicSourceConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 /**
@@ -30,6 +30,7 @@ public class MusicSourceFactory {
     @Autowired
     private MusicSourceService musicSourceService;
 
+    @PostConstruct
     public void buildProxy(@Autowired MusicSourceProxy proxy) {
         log.info("开始初始化MusicServer服务列表");
         if (templates == null || templates.isEmpty()) {
