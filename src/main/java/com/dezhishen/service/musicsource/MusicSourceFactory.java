@@ -30,24 +30,18 @@ public class MusicSourceFactory {
     @Autowired
     private MusicSourceService musicSourceService;
 
-    @Bean
-    public MusicSourceProxy buildProxy() {
+    public void buildProxy(@Autowired MusicSourceProxy proxy) {
         log.info("开始初始化MusicServer服务列表");
         if (templates == null || templates.isEmpty()) {
             log.error("可用列表为空");
             throw new MusicException(RespCode.EXCEPTION, "未找到任何音乐服务,请至少继承一个[com.dezhishen.service.musicsource.AbstractMusicSourceTemplate],且注册到spring的bean工厂中");
         }
-        MusicSourceProxy proxy = new MusicSourceProxy();
         for (AbstractMusicSourceTemplate template : templates) {
-            MusicSource t = new MusicSource();
+            MusicSource t = musicSourceConfig.getSource(template.getSource());
             t.setId(template.getSource());
-            t.setUri(musicSourceConfig.getSource(template.getSource()).getUri());
-            t.setEnabled(musicSourceConfig.getSource(template.getSource()).getEnabled());
-            t.setProperties(musicSourceConfig.getSource(template.getSource()).getProperties());
             log.info("注册音乐服务[{}],uri:[{}],是否启用:[{}]", t.getId(), t.getUri(), t.getEnabled());
             musicSourceService.save(t);
             proxy.addTemplate(template);
         }
-        return proxy;
     }
 }

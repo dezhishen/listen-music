@@ -5,8 +5,6 @@ import com.dezhishen.domain.MusicUser;
 import com.dezhishen.domain.PlayList;
 import com.dezhishen.domain.Song;
 import com.dezhishen.service.MusicSourceService;
-import com.dezhishen.service.musicsource.conf.MusicSourceConfig;
-import com.dezhishen.service.musicsource.conf.MusicSourceProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;

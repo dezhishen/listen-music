@@ -40,4 +40,9 @@ public class CacheKey {
      * 源
      */
     public static final String MUSIC_SOURCE = "_music_source";
+
+    /**
+     * 音乐播放地址
+     */
+    public static final String MUSIC_URL = "_music_url:%s:%s";
 }

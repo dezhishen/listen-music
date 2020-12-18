@@ -6,15 +6,21 @@ spring:
   session:
     store-type: redis
     redis.namespace: session
+server:
+  servlet:
+    context-path: /api
 music-server:
   sources:
     NeteaseCloud:
+      label: 网易云
       enabled: true
       uri: ${NETEASE_CLOUD_URI:http://localhost:3000}
     MiguMusic:
+      label: 咪咕
       enabled: true
       uri: ${MIGU_MUSIC_URI:http://localhost:3400}
     QqMusic:
+      label: QQ音乐
       enabled: false
       uri: ${QQ_MUSIC_URI:http://localhost:3300}
 biscuit-filter:

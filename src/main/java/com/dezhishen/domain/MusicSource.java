@@ -17,6 +17,10 @@ public class MusicSource extends BaseDomain {
      */
     private Boolean enabled;
     /**
+     * 名称
+     */
+    private String label;
+    /**
      * 地址
      */
     private String uri;

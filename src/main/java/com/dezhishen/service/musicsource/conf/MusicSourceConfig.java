@@ -1,6 +1,7 @@
 package com.dezhishen.service.musicsource.conf;
 
 
+import com.dezhishen.domain.MusicSource;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -19,9 +20,9 @@ import java.util.Map;
 @ConfigurationProperties(prefix = "music-server")
 @Configuration
 public class MusicSourceConfig {
-    private Map<String, MusicSourceProperties> sources = new HashMap<>();
+    private Map<String, MusicSource> sources = new HashMap<>();
 
-    public MusicSourceProperties getSource(String key) {
+    public MusicSource getSource(String key) {
         return sources.get(key);
     }
 }

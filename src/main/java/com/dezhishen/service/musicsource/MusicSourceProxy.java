@@ -6,10 +6,17 @@ import com.dezhishen.domain.PlayList;
 import com.dezhishen.domain.Song;
 import com.dezhishen.exception.MusicException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
+import static com.dezhishen.constant.CacheKey.MUSIC_URL;
 
 /**
  * 音乐服务对外入口
@@ -17,8 +24,11 @@ import java.util.Map;
  * @author dezhishen
  */
 @Slf4j
+@Service
 public class MusicSourceProxy {
 
+    @Autowired
+    private RedisTemplate redisTemplate;
     private Map<String, AbstractMusicSourceTemplate> _templateMaps = new HashMap<>();
 
     public void addTemplate(AbstractMusicSourceTemplate abstractMusicSourceTemplate) {
@@ -58,7 +68,13 @@ public class MusicSourceProxy {
     }
 
     public String getSongUrlById(String source, String id) {
-        return getTemplate(source).getSongUrlById(id);
+        String cacheKey = String.format(MUSIC_URL, source, id);
+        String url = (String) redisTemplate.opsForValue().get(cacheKey);
+        if (StringUtils.isEmpty(url)) {
+            url = getTemplate(source).getSongUrlById(id);
+            redisTemplate.opsForValue().set(cacheKey, url, 60, TimeUnit.SECONDS);
+        }
+        return url;
     }
 
     public Page<Song> searchSong(String q, String source, Integer pageNum, Integer pageSize) {
