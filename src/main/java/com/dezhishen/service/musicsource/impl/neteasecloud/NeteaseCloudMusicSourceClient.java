@@ -57,7 +57,9 @@ public class NeteaseCloudMusicSourceClient extends AbstractMusicSourceTemplate {
 
     @Override
     public PageInfo<Song> searchSong(String q, Integer pageNum, Integer pageSize) {
-        String str = restTemplate.getForObject(getUri() + "/search?keywords=" + q + "&offset=" + (pageNum - 1) * pageSize + "&limit=" + pageSize, String.class);
+        String uri = getUri() + "/search?keywords=" + q + "&offset=" + (pageNum - 1) * pageSize + "&limit=" + pageSize;
+        log.info("uri {}", uri);
+        String str = restTemplate.getForObject(uri, String.class);
         log.info("resp {}", str);
         PageInfo<Song> result = new PageInfo<>();
         result.setPageNum(pageNum);
