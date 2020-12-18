@@ -1,5 +1,6 @@
 package com.dezhishen.service.musicsource.impl.neteasecloud;
 
+import com.alibaba.fastjson.JSONObject;
 import com.dezhishen.domain.MusicUser;
 import com.dezhishen.domain.PlayList;
 import com.dezhishen.domain.Song;
@@ -9,7 +10,9 @@ import com.dezhishen.service.musicsource.util.CovertUtil;
 import com.github.pagehelper.PageInfo;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,25 +23,13 @@ import java.util.List;
  * @author dezhishen
  */
 @Service
+@Slf4j
 public class NeteaseCloudMusicSourceClient extends AbstractMusicSourceTemplate {
     @Override
     public String getSource() {
         return MusicSources.NETEASE_CLOUD;
     }
 
-    /**
-     * 音乐详情返回结果
-     */
-    @Setter
-    @Getter
-    public static class NeteaseCloudMusics {
-        private List<NeteaseCloudSong> songs;
-        private Long songCount;
-        private Boolean hasMore;
-
-        public NeteaseCloudMusics() {
-        }
-    }
 
     @Override
     public Song getSongById(String id) {
@@ -53,14 +44,6 @@ public class NeteaseCloudMusicSourceClient extends AbstractMusicSourceTemplate {
         return result;
     }
 
-    @Getter
-    @Setter
-    public static class NeteaseCloudUrlResp {
-        private List<NeteaseCloudUrl> data;
-
-        public NeteaseCloudUrlResp() {
-        }
-    }
 
     @Override
     public String getSongUrlById(String id) {
@@ -71,22 +54,18 @@ public class NeteaseCloudMusicSourceClient extends AbstractMusicSourceTemplate {
         return resp.getData().get(0).getUrl();
     }
 
-    @Getter
-    @Setter
-    public static class SearchSongResp {
-        private int code;
-        private NeteaseCloudMusics result;
-
-        public SearchSongResp() {
-        }
-    }
 
     @Override
     public PageInfo<Song> searchSong(String q, Integer pageNum, Integer pageSize) {
-        SearchSongResp resp = restTemplate.getForObject(getUri() + "/search?keywords=" + q + "&offset=" + (pageNum - 1) * pageSize + "&limit=" + pageSize, SearchSongResp.class);
+        String str = restTemplate.getForObject(getUri() + "/search?keywords=" + q + "&offset=" + (pageNum - 1) * pageSize + "&limit=" + pageSize, String.class);
+        log.info("resp {}", str);
         PageInfo<Song> result = new PageInfo<>();
         result.setPageNum(pageNum);
         result.setPageSize(pageSize);
+        if (StringUtils.isEmpty(str)) {
+            return null;
+        }
+        SearchSongResp resp = JSONObject.parseObject(str, SearchSongResp.class);
         if (resp == null || resp.getResult() == null) {
             result.setTotal(0);
             return result;
