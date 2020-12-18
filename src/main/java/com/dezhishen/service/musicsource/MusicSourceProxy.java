@@ -64,6 +64,7 @@ public class MusicSourceProxy {
             return null;
         }
         result.setSource(source);
+        result.setUrl(getSongUrlById(source, id));
         return result;
     }
 

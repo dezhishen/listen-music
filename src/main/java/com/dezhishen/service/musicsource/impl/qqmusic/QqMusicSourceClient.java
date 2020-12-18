@@ -48,7 +48,6 @@ public class QqMusicSourceClient extends AbstractMusicSourceTemplate {
             return null;
         }
         Song song = CovertUtil.qqMusicSong2Song(resp.getData().getTrackInfo());
-        song.setUrl(getSongUrlById(id));
         return song;
     }
 

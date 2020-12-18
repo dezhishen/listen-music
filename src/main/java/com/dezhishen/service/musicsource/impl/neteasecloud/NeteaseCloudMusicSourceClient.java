@@ -8,8 +8,6 @@ import com.dezhishen.service.musicsource.AbstractMusicSourceTemplate;
 import com.dezhishen.service.musicsource.constant.MusicSources;
 import com.dezhishen.service.musicsource.util.CovertUtil;
 import com.github.pagehelper.PageInfo;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -40,7 +38,6 @@ public class NeteaseCloudMusicSourceClient extends AbstractMusicSourceTemplate {
         NeteaseCloudSong music = resp.getSongs().get(0);
         Song result = CovertUtil.neteaseCloudSong2Song(music);
         result.setSource(getSource());
-        result.setUrl(getSongUrlById(id));
         return result;
     }
 
