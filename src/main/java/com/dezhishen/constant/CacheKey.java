@@ -45,4 +45,8 @@ public class CacheKey {
      * 音乐播放地址
      */
     public static final String MUSIC_URL = "_music_url:%s:%s";
+    /**
+     * 用户播放列表
+     */
+    public static final String USER_PLAY_LIST = "_user_play_list:%s";
 }

@@ -1,9 +1,11 @@
 package com.dezhishen.storage;
 
+import com.dezhishen.constant.CacheKey;
 import com.dezhishen.domain.UserPlayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.Collection;
 import java.util.List;
@@ -14,7 +16,7 @@ public class UserPlayListStorage {
     private RedisTemplate redisTemplate;
 
     private static String getCacheKey(String userId) {
-        return "";
+        return String.format(CacheKey.USER_PLAY_LIST,userId);
     }
 
     public void save(String userId, String playListId) {
@@ -27,6 +29,6 @@ public class UserPlayListStorage {
     }
 
     public Collection<String> getUserPlayList(String userId) {
-        return redisTemplate.opsForSet().members(userId);
+        return redisTemplate.opsForSet().members(getCacheKey(userId));
     }
 }

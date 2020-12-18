@@ -40,6 +40,14 @@ public class CovertUtil {
                 artists.add(neteaseArtist2Artist(artist));
             }
             result.setArtists(artists);
+        } else {
+            if (source.getAr() != null && !source.getAr().isEmpty()) {
+                List<Artist> artists = new ArrayList<>();
+                for (NeteaseCloudSong.Artist artist : source.getAr()) {
+                    artists.add(neteaseArtist2Artist(artist));
+                }
+                result.setArtists(artists);
+            }
         }
         if (result.getFee() == 1 || result.getFee() == 8 || result.getFee() == 0) {
             result.setFree(true);
