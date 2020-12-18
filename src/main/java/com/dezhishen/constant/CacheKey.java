@@ -13,7 +13,7 @@ public class CacheKey {
     /**
      * 歌曲
      */
-    public static final String SONG = "_song";
+    public static final String SONG = "_song:%s:%s";
     /**
      * 系统用户
      */

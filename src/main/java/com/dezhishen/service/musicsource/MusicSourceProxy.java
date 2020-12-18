@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static com.dezhishen.constant.CacheKey.MUSIC_URL;
+import static com.dezhishen.constant.CacheKey.SONG;
 
 /**
  * 音乐服务对外入口
@@ -59,11 +60,16 @@ public class MusicSourceProxy {
      * @return
      */
     public Song getSongById(String source, String id) {
-        Song result = getTemplate(source).getSongById(id);
+        String cacheKey = String.format(SONG, source, id);
+        Song result = (Song) redisTemplate.opsForValue().get(cacheKey);
         if (result == null) {
-            return null;
+            result = getTemplate(source).getSongById(id);
+            if (result == null) {
+                return null;
+            }
+            result.setSource(source);
+            redisTemplate.opsForValue().set(cacheKey, result);
         }
-        result.setSource(source);
         result.setUrl(getSongUrlById(source, id));
         return result;
     }
