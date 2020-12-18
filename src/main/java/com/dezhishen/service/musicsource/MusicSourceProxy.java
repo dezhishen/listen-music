@@ -5,9 +5,9 @@ import com.dezhishen.domain.MusicUser;
 import com.dezhishen.domain.PlayList;
 import com.dezhishen.domain.Song;
 import com.dezhishen.exception.MusicException;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -77,15 +77,15 @@ public class MusicSourceProxy {
         return url;
     }
 
-    public Page<Song> searchSong(String q, String source, Integer pageNum, Integer pageSize) {
+    public PageInfo<Song> searchSong(String q, String source, Integer pageNum, Integer pageSize) {
         return getTemplate(source).searchSong(q, pageNum, pageSize);
     }
 
-    public Page<MusicUser> searchMusicUser(String q, String source, Integer pageNum, Integer pageSize) {
+    public PageInfo<MusicUser> searchMusicUser(String q, String source, Integer pageNum, Integer pageSize) {
         return getTemplate(source).searchMusicUser(q, source, pageNum, pageSize);
     }
 
-    public Page<PlayList> searchPlayList(String q, String source, Integer pageNum, Integer pageSize) {
+    public PageInfo<PlayList> searchPlayList(String q, String source, Integer pageNum, Integer pageSize) {
         return getTemplate(source).searchPlayList(q, source, pageNum, pageSize);
     }
 }

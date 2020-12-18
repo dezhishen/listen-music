@@ -5,19 +5,15 @@ import com.dezhishen.domain.PlayList;
 import com.dezhishen.domain.Song;
 import com.dezhishen.service.musicsource.AbstractMusicSourceTemplate;
 import com.dezhishen.service.musicsource.constant.MusicSources;
-import com.dezhishen.service.musicsource.impl.neteasecloud.NeteaseCloudSong;
 import com.dezhishen.service.musicsource.util.CovertUtil;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.github.pagehelper.PageInfo;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class QqMusicSourceClient extends AbstractMusicSourceTemplate {
@@ -104,10 +100,14 @@ public class QqMusicSourceClient extends AbstractMusicSourceTemplate {
     }
 
     @Override
-    public Page<Song> searchSong(String q, Integer pageNum, Integer pageSize) {
+    public PageInfo<Song> searchSong(String q, Integer pageNum, Integer pageSize) {
         SearchSongResp resp = restTemplate.getForObject(getUri() + "/search?key=" + q + "&pageNo=" + pageNum + "&pageSize=" + pageSize, SearchSongResp.class);
+        PageInfo<Song> result = new PageInfo<>();
+        result.setPageNum(pageNum);
+        result.setPageSize(pageSize);
         if (resp == null || resp.getData() == null) {
-            return Page.empty();
+            result.setTotal(0);
+            return result;
         }
         List<Song> content = new ArrayList<>();
         if (resp.getData().getList() != null) {
@@ -116,16 +116,18 @@ public class QqMusicSourceClient extends AbstractMusicSourceTemplate {
                 content.add(e);
             }
         }
-        return new PageImpl<>(content, PageRequest.of(pageNum - 1, pageSize), resp.getData().getTotal());
+        result.setList(content);
+        result.setTotal(resp.getData().getTotal());
+        return result;
     }
 
     @Override
-    public Page<MusicUser> searchMusicUser(String q, String source, Integer pageNum, Integer pageSize) {
+    public PageInfo<MusicUser> searchMusicUser(String q, String source, Integer pageNum, Integer pageSize) {
         return null;
     }
 
     @Override
-    public Page<PlayList> searchPlayList(String q, String source, Integer pageNum, Integer pageSize) {
+    public PageInfo<PlayList> searchPlayList(String q, String source, Integer pageNum, Integer pageSize) {
         return null;
     }
 }

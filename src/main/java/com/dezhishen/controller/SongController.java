@@ -6,6 +6,7 @@ import com.dezhishen.domain.Song;
 import com.dezhishen.domain.MusicUser;
 import com.dezhishen.domain.PlayList;
 import com.dezhishen.service.MusicService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class SongController extends BaseController {
     private MusicService musicService;
 
     @GetMapping("/search")
-    public RespEntity<Page<Song>> search(
+    public RespEntity<PageInfo<Song>> search(
             @RequestParam String q,
             @RequestParam String source,
             @RequestParam(required = false, defaultValue = "1") Integer pageNum,
@@ -41,7 +42,7 @@ public class SongController extends BaseController {
     }
 
     @GetMapping("/searchMusicUser")
-    public RespEntity<Page<MusicUser>> searchMusicUser(
+    public RespEntity<PageInfo<MusicUser>> searchMusicUser(
             @RequestParam String q,
             @RequestParam String source,
             @RequestParam(required = false, defaultValue = "1") Integer pageNum,
@@ -50,7 +51,7 @@ public class SongController extends BaseController {
     }
 
     @PostMapping("/searchPlayList")
-    public RespEntity<Page<PlayList>> searchPlayList(
+    public RespEntity<PageInfo<PlayList>> searchPlayList(
             @RequestParam String q,
             @RequestParam String source,
             @RequestParam(required = false, defaultValue = "1") Integer pageNum,
