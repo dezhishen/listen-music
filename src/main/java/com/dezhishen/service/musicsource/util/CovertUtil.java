@@ -124,9 +124,9 @@ public class CovertUtil {
         result.setId(source.getSongmid());
         result.setName(source.getSongname());
         result.setSource(MusicSources.QQ_MUSIC);
-        if (source.getSingers() != null && !source.getSingers().isEmpty()) {
+        if (source.getSinger() != null && !source.getSinger().isEmpty()) {
             List<Artist> artists = new ArrayList<>();
-            for (QqMusicArtist singer : source.getSingers()) {
+            for (QqMusicArtist singer : source.getSinger()) {
                 artists.add(qqMusicSinger2Artist(singer));
             }
             result.setArtists(artists);
