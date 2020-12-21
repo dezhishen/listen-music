@@ -28,7 +28,7 @@ public class QqMusicSong {
     private String name;
     private String url;
     private String lyric;
-    private List<QqMusicArtist> singers;
+    private List<QqMusicArtist> singer;
     private Album album;
 
     public QqMusicSong() {
