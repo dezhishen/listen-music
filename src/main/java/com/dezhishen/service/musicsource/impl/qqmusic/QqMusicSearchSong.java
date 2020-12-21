@@ -14,7 +14,7 @@ public class QqMusicSearchSong {
     private String songid;
     private String songmid;
     private String songname;
-    private List<QqMusicArtist> singers;
+    private List<QqMusicArtist> singer;
 
     public QqMusicSearchSong() {
     }
