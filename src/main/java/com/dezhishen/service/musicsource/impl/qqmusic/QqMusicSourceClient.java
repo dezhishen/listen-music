@@ -47,8 +47,7 @@ public class QqMusicSourceClient extends AbstractMusicSourceTemplate {
         if (resp == null || resp.getData() == null || resp.getData().getTrackInfo() == null) {
             return null;
         }
-        Song song = CovertUtil.qqMusicSong2Song(resp.getData().getTrackInfo());
-        return song;
+        return CovertUtil.qqMusicSong2Song(resp.getData().getTrackInfo());
     }
 
     @Getter
