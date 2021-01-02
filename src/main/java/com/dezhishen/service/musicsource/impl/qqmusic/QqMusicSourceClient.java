@@ -11,6 +11,7 @@ import com.github.pagehelper.PageInfo;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Service;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -127,5 +128,10 @@ public class QqMusicSourceClient extends AbstractMusicSourceTemplate {
     @Override
     public PageInfo<PlayList> searchPlayList(String q, String source, Integer pageNum, Integer pageSize) {
         return null;
+    }
+
+    @Override
+    public Boolean loginByPhone(String phone, String password) {
+        throw new NotImplementedException();
     }
 }

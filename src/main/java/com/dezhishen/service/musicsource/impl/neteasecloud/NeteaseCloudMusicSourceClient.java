@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.dezhishen.domain.MusicUser;
 import com.dezhishen.domain.PlayList;
 import com.dezhishen.domain.Song;
+import com.dezhishen.exception.MusicException;
 import com.dezhishen.service.musicsource.AbstractMusicSourceTemplate;
 import com.dezhishen.service.musicsource.constant.MusicSources;
 import com.dezhishen.service.musicsource.util.CovertUtil;
@@ -89,5 +90,18 @@ public class NeteaseCloudMusicSourceClient extends AbstractMusicSourceTemplate {
     @Override
     public PageInfo<PlayList> searchPlayList(String q, String source, Integer pageNum, Integer pageSize) {
         return null;
+    }
+
+    @Override
+    public Boolean loginByPhone(String phone, String password) {
+        String uri = getUri() + "/login/cellphone?phone=" + phone + "&password=" + password;
+        LoginResp resp = restTemplate.getForObject(uri, LoginResp.class);
+        if (resp == null) {
+            throw new MusicException(500, "调用登录发生未知错误");
+        }
+        if (resp.getCode() != 200) {
+            throw new MusicException(resp.getCode(), "调用登录发生错误[]", resp.getMessage());
+        }
+        return true;
     }
 }

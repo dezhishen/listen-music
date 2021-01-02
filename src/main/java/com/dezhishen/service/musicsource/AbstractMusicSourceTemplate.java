@@ -95,4 +95,13 @@ public abstract class AbstractMusicSourceTemplate {
      * @return
      */
     public abstract PageInfo<PlayList> searchPlayList(String q, String source, Integer pageNum, Integer pageSize);
+
+    /**
+     * 登录
+     *
+     * @param phone
+     * @param password
+     * @return
+     */
+    public abstract Boolean loginByPhone(String phone, String password);
 }

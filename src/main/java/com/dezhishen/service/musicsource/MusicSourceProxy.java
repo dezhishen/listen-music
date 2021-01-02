@@ -95,4 +95,8 @@ public class MusicSourceProxy {
     public PageInfo<PlayList> searchPlayList(String q, String source, Integer pageNum, Integer pageSize) {
         return getTemplate(source).searchPlayList(q, source, pageNum, pageSize);
     }
+
+    public Boolean loginByPhone(String source, String phone, String password) {
+        return getTemplate(source).loginByPhone(phone,password);
+    }
 }
