@@ -27,6 +27,7 @@ public class Song {
     private Album album;
     private String url;
     private Long lastUpdateTimestamp;
+    private String lyric;
     /**
      * 是否免费
      */

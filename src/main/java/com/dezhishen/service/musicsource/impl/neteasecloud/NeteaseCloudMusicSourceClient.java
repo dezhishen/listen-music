@@ -38,6 +38,10 @@ public class NeteaseCloudMusicSourceClient extends AbstractMusicSourceTemplate {
         }
         NeteaseCloudSong music = resp.getSongs().get(0);
         Song result = CovertUtil.neteaseCloudSong2Song(music);
+        LrcResp lrcResp = restTemplate.getForObject(getUri() + "/lyric?id=" + id, LrcResp.class);
+        if (lrcResp != null && lrcResp.getLrc() != null) {
+            result.setLyric(lrcResp.getLrc().getLyric());
+        }
         result.setSource(getSource());
         return result;
     }

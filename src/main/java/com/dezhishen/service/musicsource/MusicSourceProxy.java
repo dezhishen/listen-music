@@ -79,7 +79,7 @@ public class MusicSourceProxy {
         String url = (String) redisTemplate.opsForValue().get(cacheKey);
         if (StringUtils.isEmpty(url)) {
             url = getTemplate(source).getSongUrlById(id);
-            redisTemplate.opsForValue().set(cacheKey, url, 60, TimeUnit.SECONDS);
+            redisTemplate.opsForValue().set(cacheKey, url, 60, TimeUnit.MINUTES);
         }
         return url;
     }
