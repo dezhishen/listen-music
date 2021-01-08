@@ -1,0 +1,36 @@
+# 配置说明
+
+## 地址
+listen-music:
+  - label: 网易云
+    source: NeteaseCloud
+    enabled: true
+    host: xxxx
+    method:
+      songDetail:
+        uri: /song/detail/?ids={id}
+        method: get
+        fields:
+          expression: ""
+          id: ""
+          name: "?"
+          artists:
+            expression:
+            fields:
+              id: ""
+              name: ""
+      searchSong:
+        uri: /search?keywords={q}&offset={offset}&limit={limit}
+        method: get
+        fields:
+          expression: ""
+          song: ""
+      songUrl:
+        uri: /song/url?id={id}
+        method: get
+        fields:
+          expression: ""
+
+  - label: test
+
+
