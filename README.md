@@ -40,7 +40,10 @@
     * [x] 获取歌单信息
     * [x] 获取歌单中的音乐列表
     * [ ] 排序
+    * [ ] 接入mysql实现
 * 歌曲
+    * [ ] 集成[JsonPath](https://github.com/json-path/JsonPath)
+      * [ ] 使用配置的方式实现对音乐资源的获取
     * NeteaseCloudMusicApi
         * [x] 获取单个歌曲信息
         * [x] 获取单个歌曲播放地址

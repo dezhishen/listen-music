@@ -18,6 +18,7 @@ public class PlayList extends BaseDomain {
     private String id;
     private String userId;
     private String name;
+    private String cover;
     private String description;
     private List<String> tags;
 }
