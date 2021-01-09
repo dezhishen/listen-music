@@ -16,13 +16,13 @@ public class Song {
     private String source;
     private String id;
     private String name;
-    private int position;
+    private Integer position;
     private List<String> alias;
-    private int status;
-    private int fee;
-    private int copyrightId;
+    private Integer status;
+    private Integer fee;
+    private Integer copyrightId;
     private String disc;
-    private int no;
+    private Integer no;
     private List<Artist> artists;
     private Album album;
     private String url;
@@ -31,7 +31,7 @@ public class Song {
     /**
      * 是否免费
      */
-    private boolean free;
+    private Boolean free;
 
     public void setId(Object id) {
         if (id == null) {

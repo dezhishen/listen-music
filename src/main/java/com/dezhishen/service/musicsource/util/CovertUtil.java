@@ -73,7 +73,7 @@ public class CovertUtil {
             return null;
         }
         Album result = new Album();
-        result.setId(source.getId());
+        result.setId(source.getId().toString());
         result.setName(source.getName());
         if (source.getArtists() != null && !source.getArtists().isEmpty()) {
             List<Artist> artists = new ArrayList<>();

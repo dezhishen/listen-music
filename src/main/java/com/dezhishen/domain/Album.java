@@ -15,12 +15,12 @@ import java.util.List;
 @Setter
 public class Album {
     private String name;
-    private long id;
+    private String id;
     private List<Artist> artists;
     private Date publishTime;
-    private long size;
-    private long copyrightId;
-    private int status;
-    private long picId;
-    private long mark;
+    private Long size;
+    private Long copyrightId;
+    private Integer status;
+    private Long picId;
+    private Long mark;
 }

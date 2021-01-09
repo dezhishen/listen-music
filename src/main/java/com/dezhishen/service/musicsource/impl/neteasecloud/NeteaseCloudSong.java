@@ -1,6 +1,5 @@
 package com.dezhishen.service.musicsource.impl.neteasecloud;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -43,14 +42,14 @@ public class NeteaseCloudSong {
     @Setter
     public static class Album {
         private String name;
-        private long id;
+        private Long id;
         private List<Artist> artists;
         private Date publishTime;
-        private long size;
-        private long copyrightId;
-        private int status;
-        private long picId;
-        private long mark;
+        private Long size;
+        private Long copyrightId;
+        private Integer status;
+        private Long picId;
+        private Long mark;
 
         public Album() {
 
