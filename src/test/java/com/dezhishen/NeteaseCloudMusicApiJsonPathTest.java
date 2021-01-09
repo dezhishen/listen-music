@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
-public class JsonPathTest {
+public class NeteaseCloudMusicApiJsonPathTest {
 
     @Test
     public void test() {
