@@ -21,6 +21,8 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -71,18 +73,18 @@ public class JsonPathMusicResourceServiceProxyImpl implements IMusicResourceServ
                     uriVariables,
                     config.getMethod()
             );
-            Object songJson = JsonPath.read(resp, config.getRoot());
+            Object songJson = read(resp, config.getRoot());
             result = new Song();
-            result.setId(JsonPath.read(songJson, config.getId()));
-            result.setName(JsonPath.read(songJson, config.getName()));
+            result.setId(read(songJson, config.getId()));
+            result.setName(read(songJson, config.getName()));
             JsonPathArtistsConfig artistsConfig = config.getArtists();
-            List<Object> artistsJsonArray = JsonPath.read(songJson, artistsConfig.getRoot());
+            List<Object> artistsJsonArray = read(songJson, artistsConfig.getRoot());
             if (artistsJsonArray != null && !artistsJsonArray.isEmpty()) {
                 List<Artist> artists = new ArrayList<>();
                 for (Object artistsJson : artistsJsonArray) {
                     Artist artist = new Artist();
-                    artist.setId(JsonPath.read(artistsJson, artistsConfig.getId()).toString());
-                    artist.setName(JsonPath.read(artistsJson, artistsConfig.getName()));
+                    artist.setId(read(artistsJson, artistsConfig.getId()).toString());
+                    artist.setName(read(artistsJson, artistsConfig.getName()));
                     artists.add(artist);
                 }
                 result.setArtists(artists);
@@ -132,7 +134,8 @@ public class JsonPathMusicResourceServiceProxyImpl implements IMusicResourceServ
                     uriVariables,
                     config.getMethod()
             );
-            url = JsonPath.read(resp, config.getRoot());
+            Object root = read(resp, config.getRoot());
+            url = read(root, config.getUrl());
             cache.put(key, url);
         }
         return url;
@@ -156,30 +159,30 @@ public class JsonPathMusicResourceServiceProxyImpl implements IMusicResourceServ
         PageInfo<Song> result = new PageInfo<>();
         result.setPageNum(pageNum);
         result.setPageSize(pageSize);
-        Object resultJson = JsonPath.read(resp, config.getRoot());
-        Object total = JsonPath.read(resultJson, config.getTotal());
+        Object resultJson = read(resp, config.getRoot());
+        Object total = read(resultJson, config.getTotal());
         if (total == null) {
             result.setTotal(0);
         } else {
             result.setTotal(Long.parseLong(total.toString()));
         }
         MusicApiSearchSongConfig.SongConfig listConfig = config.getList();
-        List<Object> songJsonArray = JsonPath.read(resultJson, listConfig.getRoot());
+        List<Object> songJsonArray = read(resultJson, listConfig.getRoot());
         MusicApiSearchSongConfig.ArtistConfig artistConfig = listConfig.getArtists();
         if (songJsonArray != null && !songJsonArray.isEmpty()) {
             List<Song> list = new ArrayList<>();
             for (Object songJson : songJsonArray) {
                 Song song = new Song();
-                song.setId(JsonPath.read(songJson, listConfig.getId()).toString());
-                song.setName(JsonPath.read(songJson, listConfig.getName()));
-                List<Object> artistsJsonArray = JsonPath.read(songJson, artistConfig.getRoot());
+                song.setId(read(songJson, listConfig.getId()).toString());
+                song.setName(read(songJson, listConfig.getName()));
+                List<Object> artistsJsonArray = read(songJson, artistConfig.getRoot());
                 if (artistsJsonArray != null && !artistsJsonArray.isEmpty()) {
                     List<Artist> artists = new ArrayList<>();
                     for (Object artistsJson : artistsJsonArray) {
                         Artist artist = new Artist();
-                        artist.setId(JsonPath.read(artistsJson, artistConfig.getId()).toString());
-                        artist.setName(JsonPath.read(artistsJson, artistConfig.getName()));
-                        artist.setPicUrl(JsonPath.read(artistsJson, artistConfig.getPicUrl()));
+                        artist.setId(read(artistsJson, artistConfig.getId()).toString());
+                        artist.setName(read(artistsJson, artistConfig.getName()));
+                        artist.setPicUrl(read(artistsJson, artistConfig.getPicUrl()));
                         artists.add(artist);
                     }
                     song.setArtists(artists);
@@ -218,5 +221,21 @@ public class JsonPathMusicResourceServiceProxyImpl implements IMusicResourceServ
             source.setId(id);
             musicSourceStorage.save(source);
         });
+    }
+
+    private <T> T read(Object source, String exp) {
+        if (source == null) {
+            return null;
+        }
+        if (StringUtils.isEmpty(source)) {
+            return null;
+        }
+        if (StringUtils.isEmpty(exp)) {
+            return null;
+        }
+        if (source instanceof String) {
+            return JsonPath.read((String) source, exp);
+        }
+        return JsonPath.read(source, exp);
     }
 }

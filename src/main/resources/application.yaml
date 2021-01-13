@@ -1,3 +1,6 @@
+cache:
+  expires:
+    _music_url: 3600
 spring:
   redis:
     host: ${REDIS_HOST:127.0.0.1}
@@ -47,7 +50,8 @@ music-server:
             name: "$.name"
         song-url:
           uri: "/song/url?id={id}"
-          root: "$.data[0].url"
+          root: "$.data[0]"
+          url: "$.url"
         search-song:
           uri: "/search?keywords={q}&limit={limit}&offset={offset}"
           root: "$.result"
@@ -60,20 +64,36 @@ music-server:
               root: "$.artists"
               id: "$.id"
               name: "$.name"
-              pic-url: "$.img1v1Url"
-#  sources:
-#    NeteaseCloud:
-#      label: 网易云
-#      enabled: true
-#      uri: ${NETEASE_CLOUD_URI:http://localhost:3000}
-#    MiguMusic:
-#      label: 咪咕
-#      enabled: true
-#      uri: ${MIGU_MUSIC_URI:http://localhost:3400}
-#    QqMusic:
-#      label: QQ音乐
-#      enabled: true
-#      uri: ${QQ_MUSIC_URI:http://localhost:3300}
+    QQMusicApi:
+      enabled: true
+      label: QQ音乐
+      base-uri:  ${QQ_MUSIC_URI:http://localhost:3300}
+      api:
+        song:
+          uri: "/song?songmid={id}"
+          root: "$.data.track_info"
+          id: "$.mid"
+          name: "$.name"
+          artists:
+            root: "$.singer"
+            id: "$.mid"
+            name: "$.name"
+        song-url:
+          uri: "/song/urls?id={id}"
+          root: "$.data.*"
+          url: "$[0]"
+        search-song:
+          uri: "/search?key={q}&pageNo={pageNum}&pageSize={pageSize}"
+          root: "$.data"
+          total: "$.total"
+          list:
+            root: "$.list"
+            id: "$.songmid"
+            name: "$.songname"
+            artists:
+              root: "$.singer"
+              id: "$.mid"
+              name: "$.name"
 biscuit-filter:
   ignore:
     - /biscuit/save

@@ -42,28 +42,30 @@
     * [ ] 排序
     * [ ] 接入mysql实现
 * 歌曲
-    * [ ] 集成[JsonPath](https://github.com/json-path/JsonPath)
-      * [ ] 使用配置的方式实现对音乐资源的获取
-    * NeteaseCloudMusicApi
-        * [x] 获取单个歌曲信息
-        * [x] 获取单个歌曲播放地址
-        * [x] 搜索歌曲
-        * [ ] 搜索歌单
-        * [ ] 搜索用户
-    * QQMusicApi
-        * [ ] 标识vip歌曲,防止获取播放地址错误的问题
-        * [x] 获取单个歌曲信息
-        * [x] 获取单个歌曲播放地址
-        * [x] 搜索歌曲
-        * [ ] 搜索歌单
-        * [ ] 搜索用户
-    * MiguMusicApi
-        * [ ] 获取单个歌曲信息
-        * [ ] 获取单个歌曲播放地址
-        * [ ] 搜索歌曲
-        * [ ] 搜索歌单
-        * [ ] 搜索用户
- 
+    * [x] 集成[JsonPath](https://github.com/json-path/JsonPath)
+      * 使用配置的方式实现对音乐资源的获取
+        * NeteaseCloudMusicApi
+            * [x] 获取单个歌曲信息
+            * [x] 获取单个歌曲播放地址
+            * [x] 搜索歌曲
+            * [ ] 搜索歌单
+            * [ ] 搜索用户
+            * [ ] 标识vip歌曲,防止获取播放地址错误的问题
+        * QQMusicApi
+            * [x] 获取单个歌曲信息
+            * [x] 获取单个歌曲播放地址
+            * [x] 搜索歌曲
+            * [ ] 搜索歌单
+            * [ ] 搜索用户
+            * [ ] 标识vip歌曲,防止获取播放地址错误的问题
+        * MiguMusicApi
+            * [ ] 获取单个歌曲信息
+            * [ ] 获取单个歌曲播放地址
+            * [ ] 搜索歌曲
+            * [ ] 搜索歌单
+            * [ ] 搜索用户
+            * [ ] 标识vip歌曲,防止获取播放地址错误的问题
+     
 ## 项目依赖
 * [NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi)
 * [QQMusicApi](https://github.com/jsososo/QQMusicApi)
