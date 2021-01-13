@@ -94,6 +94,36 @@ music-server:
               root: "$.singer"
               id: "$.mid"
               name: "$.name"
+    MiguMusicApi:
+      enabled: true
+      label: 咪咕音乐
+      base-uri:  ${MIGU_MUSIC_URI:http://localhost:3400}
+      api:
+        song:
+          uri: "/song?id={id}"
+          root: "$.data"
+          id: "$.id"
+          name: "$.name"
+          artists:
+            root: "$.artists"
+            id: "$.id"
+            name: "$.name"
+        song-url:
+          uri: "/song/url?id={id}"
+          root: "$"
+          url: "$.data"
+        search-song:
+          uri: "/search?keyword={q}&pageNo={pageNum}&pageSize={pageSize}"
+          root: "$.data"
+          total: "$.total"
+          list:
+            root: "$.list"
+            id: "$.id"
+            name: "$.name"
+            artists:
+              root: "$.artists"
+              id: "$.id"
+              name: "$.name"
 biscuit-filter:
   ignore:
     - /biscuit/save
