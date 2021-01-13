@@ -67,6 +67,7 @@ public class BaseController {
     @ExceptionHandler
     private <T> RespEntity<T> exceptionHandle(Exception e) {
         if (e instanceof MusicException) {
+            e.printStackTrace();
             return fail(((MusicException) e).getCode(), e.getMessage());
         }
         e.printStackTrace();

@@ -30,19 +30,50 @@ server:
   servlet:
     context-path: /api
 music-server:
-  sources:
+  services:
     NeteaseCloud:
+      enabled: true
       label: 网易云
-      enabled: true
-      uri: ${NETEASE_CLOUD_URI:http://localhost:3000}
-    MiguMusic:
-      label: 咪咕
-      enabled: true
-      uri: ${MIGU_MUSIC_URI:http://localhost:3400}
-    QqMusic:
-      label: QQ音乐
-      enabled: true
-      uri: ${QQ_MUSIC_URI:http://localhost:3300}
+      base-uri:  ${NETEASE_CLOUD_URI:http://localhost:3000}
+      api:
+        song:
+          uri: "/song/detail?ids={id}"
+          root: "$.songs[0]"
+          id: "$.id"
+          name: "$.name"
+          artists:
+            root: "$.ar"
+            id: "$.id"
+            name: "$.name"
+        song-url:
+          uri: "/song/url?id={id}"
+          root: "$.data[0].url"
+        search-song:
+          uri: "/search?keywords={q}&limit={limit}&offset={offset}"
+          root: "$.result"
+          total: "$.songCount"
+          list:
+            root: "$.songs"
+            id: "$.id"
+            name: "$.name"
+            artists:
+              root: "$.artists"
+              id: "$.id"
+              name: "$.name"
+              pic-url: "$.img1v1Url"
+#  sources:
+#    NeteaseCloud:
+#      label: 网易云
+#      enabled: true
+#      uri: ${NETEASE_CLOUD_URI:http://localhost:3000}
+#    MiguMusic:
+#      label: 咪咕
+#      enabled: true
+#      uri: ${MIGU_MUSIC_URI:http://localhost:3400}
+#    QqMusic:
+#      label: QQ音乐
+#      enabled: true
+#      uri: ${QQ_MUSIC_URI:http://localhost:3300}
 biscuit-filter:
   ignore:
     - /biscuit/save

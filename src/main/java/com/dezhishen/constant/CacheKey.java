@@ -7,13 +7,17 @@ package com.dezhishen.constant;
  */
 public class CacheKey {
     /**
+     * 间隔符
+     */
+    public static final String SEPARATOR = "::";
+    /**
      * 房间
      */
     public static final String HOUSE = "_house";
     /**
      * 歌曲
      */
-    public static final String SONG = "_song:%s:%s";
+    public static final String SONG = "_song";
     /**
      * 系统用户
      */
@@ -44,9 +48,13 @@ public class CacheKey {
     /**
      * 音乐播放地址
      */
-    public static final String MUSIC_URL = "_music_url:%s:%s";
+    public static final String MUSIC_URL = "_music_url";
     /**
      * 用户播放列表
      */
     public static final String USER_PLAY_LIST = "_user_play_list:%s";
+
+    public static String getKeyBySourceAndId(String source, String id) {
+        return String.format("%s" + CacheKey.SEPARATOR + "%s", source, id);
+    }
 }

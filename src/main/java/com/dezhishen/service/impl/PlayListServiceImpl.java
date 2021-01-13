@@ -5,7 +5,7 @@ import com.dezhishen.domain.Song;
 import com.dezhishen.exception.MusicException;
 import com.dezhishen.service.PlayListService;
 import com.dezhishen.service.UserPlayListService;
-import com.dezhishen.service.musicsource.MusicSourceProxy;
+import com.dezhishen.service.musicsource.IMusicResourceServiceProxy;
 import com.dezhishen.storage.PlayListStorage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,7 @@ import java.util.List;
 @Service
 public class PlayListServiceImpl implements PlayListService {
     @Autowired
-    private MusicSourceProxy musicSourceProxy;
+    private IMusicResourceServiceProxy musicSourceProxy;
     @Autowired
     private PlayListStorage playListStorage;
     @Autowired

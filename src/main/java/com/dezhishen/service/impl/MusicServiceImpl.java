@@ -4,7 +4,7 @@ import com.dezhishen.domain.MusicUser;
 import com.dezhishen.domain.PlayList;
 import com.dezhishen.domain.Song;
 import com.dezhishen.service.MusicService;
-import com.dezhishen.service.musicsource.MusicSourceProxy;
+import com.dezhishen.service.musicsource.IMusicResourceServiceProxy;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class MusicServiceImpl implements MusicService {
     @Autowired
-    private MusicSourceProxy sourceProxy;
+    private IMusicResourceServiceProxy sourceProxy;
 
     @Override
     public PageInfo<Song> searchSong(String q, String source, Integer pageNum, Integer pageSize) {

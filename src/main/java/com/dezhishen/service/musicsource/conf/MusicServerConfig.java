@@ -1,4 +1,4 @@
-package com.dezhishen.service.musicsource.impl.jsonpath;
+package com.dezhishen.service.musicsource.conf;
 
 import com.dezhishen.exception.MusicException;
 import lombok.Getter;

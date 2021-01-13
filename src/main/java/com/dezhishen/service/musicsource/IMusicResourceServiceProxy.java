@@ -4,14 +4,8 @@ import com.dezhishen.domain.MusicUser;
 import com.dezhishen.domain.PlayList;
 import com.dezhishen.domain.Song;
 import com.github.pagehelper.PageInfo;
-import org.springframework.util.StringUtils;
 
-import java.util.concurrent.TimeUnit;
-
-import static com.dezhishen.constant.CacheKey.MUSIC_URL;
-import static com.dezhishen.constant.CacheKey.SONG;
-
-public interface IMusicSourceProxy {
+public interface IMusicResourceServiceProxy {
 
 
     /**
