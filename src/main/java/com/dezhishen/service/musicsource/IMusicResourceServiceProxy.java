@@ -58,4 +58,12 @@ public interface IMusicResourceServiceProxy {
      * @return
      */
     PageInfo<PlayList> searchPlayList(String q, String source, Integer pageNum, Integer pageSize);
+
+    /**
+     * 获取歌词
+     * @param source
+     * @param id
+     * @return
+     */
+    String getLyric(String source, String id);
 }

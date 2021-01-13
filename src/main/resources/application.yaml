@@ -48,6 +48,10 @@ music-server:
             root: "$.ar"
             id: "$.id"
             name: "$.name"
+        song-lyric:
+          uri: "/lyric?id={id}"
+          root: "$.lrc"
+          lyric: "$.lyric"
         song-url:
           uri: "/song/url?id={id}"
           root: "$.data[0]"
@@ -69,6 +73,10 @@ music-server:
       label: QQ音乐
       base-uri:  ${QQ_MUSIC_URI:http://localhost:3300}
       api:
+        song-lyric:
+          uri: "/lyric?songmid={id}"
+          root: "$.data"
+          lyric: "$.lyric"
         song:
           uri: "/song?songmid={id}"
           root: "$.data.track_info"
@@ -99,6 +107,11 @@ music-server:
       label: 咪咕音乐
       base-uri:  ${MIGU_MUSIC_URI:http://localhost:3400}
       api:
+        song-lyric:
+          uri: "/lyric?cid={cid}"
+          root: "$"
+          lyric: "$.data"
+          use-properties: true
         song:
           uri: "/song?id={id}"
           root: "$.data"
@@ -108,6 +121,9 @@ music-server:
             root: "$.artists"
             id: "$.id"
             name: "$.name"
+          process-properties: true
+          properties-alias:
+            cid: "$.cid"
         song-url:
           uri: "/song/url?id={id}"
           root: "$"

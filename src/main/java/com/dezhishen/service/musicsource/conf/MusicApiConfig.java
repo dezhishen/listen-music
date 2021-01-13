@@ -9,4 +9,5 @@ public class MusicApiConfig {
     private MusicApiGetSongConfig song;
     private MusicApiGetSongUrlConfig songUrl;
     private MusicApiSearchSongConfig searchSong;
+    private MusicApiGetSongLyrConfig songLyric;
 }

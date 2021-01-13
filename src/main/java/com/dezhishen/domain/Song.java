@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 音乐对象
@@ -32,6 +33,8 @@ public class Song {
      * 是否免费
      */
     private Boolean free;
+
+    private Map<String, String> properties;
 
     public void setId(Object id) {
         if (id == null) {

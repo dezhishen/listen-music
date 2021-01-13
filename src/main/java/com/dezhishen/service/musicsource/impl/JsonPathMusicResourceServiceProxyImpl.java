@@ -21,8 +21,6 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -60,6 +58,12 @@ public class JsonPathMusicResourceServiceProxyImpl implements IMusicResourceServ
      */
     @Override
     public Song getSongById(String source, String id) {
+        Song result = getSongWithoutLyrBySourceAndId(source, id);
+        result.setLyric(getLyric(source, id));
+        return result;
+    }
+
+    private Song getSongWithoutLyrBySourceAndId(String source, String id) {
         Cache cache = cacheManager.getCache(CacheKey.SONG);
         String key = CacheKey.getKeyBySourceAndId(source, id);
         Song result = cache.get(key, Song.class);
@@ -89,34 +93,25 @@ public class JsonPathMusicResourceServiceProxyImpl implements IMusicResourceServ
                 }
                 result.setArtists(artists);
             }
+            if (config.isProcessProperties()
+                    && config.getPropertiesAlias() != null
+                    && !config.getPropertiesAlias().isEmpty()
+            ) {
+                Map<String, String> properties = new HashMap<>();
+                config.getPropertiesAlias().forEach((k, exp) -> {
+                    String value = read(songJson, exp);
+                    if (!StringUtils.isEmpty(value)) {
+                        properties.put(k, value);
+                    }
+                });
+                if (!properties.isEmpty()) {
+                    result.setProperties(properties);
+                }
+            }
             result.setSource(source);
             cache.put(key, result);
         }
         return result;
-    }
-
-    private String request(String url, Map<String, ?> uriVariables, HttpMethod httpMethod) {
-        if (httpMethod == null) {
-            httpMethod = HttpMethod.GET;
-        }
-        if (HttpMethod.GET.equals(httpMethod)) {
-            return restTemplate.getForObject(url, String.class, uriVariables);
-        }
-        if (HttpMethod.PATCH.equals(httpMethod)) {
-            return restTemplate.patchForObject(url, uriVariables, String.class, uriVariables);
-        }
-        if (HttpMethod.POST.equals(httpMethod)) {
-            return restTemplate.postForObject(url, uriVariables, String.class, uriVariables);
-        }
-        if (HttpMethod.PUT.equals(httpMethod)) {
-            restTemplate.put(url, uriVariables, uriVariables);
-            return null;
-        }
-        if (HttpMethod.DELETE.equals(httpMethod)) {
-            restTemplate.delete(url, uriVariables);
-            return null;
-        }
-        throw new MusicException("不支持的类型[%s]", httpMethod.name());
     }
 
     @Override
@@ -129,6 +124,12 @@ public class JsonPathMusicResourceServiceProxyImpl implements IMusicResourceServ
             uriVariables.put("id", id);
             MusicServerProperty property = musicServerConfig.getProperty(source);
             MusicApiGetSongUrlConfig config = property.getApi().getSongUrl();
+            if (config.isUseProperties()) {
+                Song song = getSongWithoutLyrBySourceAndId(source, id);
+                if (song.getProperties() != null && !song.getProperties().isEmpty()) {
+                    uriVariables.putAll(song.getProperties());
+                }
+            }
             String resp = request(
                     property.getBaseUri() + "/" + config.getUri(),
                     uriVariables,
@@ -205,6 +206,27 @@ public class JsonPathMusicResourceServiceProxyImpl implements IMusicResourceServ
         return null;
     }
 
+    @Override
+    public String getLyric(String source, String id) {
+        Map<String, Object> uriVariables = new HashMap<>(2);
+        uriVariables.put("id", id);
+        MusicServerProperty property = musicServerConfig.getProperty(source);
+        MusicApiGetSongLyrConfig config = property.getApi().getSongLyric();
+        if (config.isUseProperties()) {
+            Song song = getSongWithoutLyrBySourceAndId(source, id);
+            if (song.getProperties() != null && !song.getProperties().isEmpty()) {
+                uriVariables.putAll(song.getProperties());
+            }
+        }
+        String resp = request(
+                property.getBaseUri() + "/" + config.getUri(),
+                uriVariables,
+                config.getMethod()
+        );
+        Object root = read(resp, config.getRoot());
+        return read(root, config.getLyric());
+    }
+
     @Autowired
     private MusicSourceStorage musicSourceStorage;
 
@@ -221,6 +243,30 @@ public class JsonPathMusicResourceServiceProxyImpl implements IMusicResourceServ
             source.setId(id);
             musicSourceStorage.save(source);
         });
+    }
+
+    private String request(String url, Map<String, ?> uriVariables, HttpMethod httpMethod) {
+        if (httpMethod == null) {
+            httpMethod = HttpMethod.GET;
+        }
+        if (HttpMethod.GET.equals(httpMethod)) {
+            return restTemplate.getForObject(url, String.class, uriVariables);
+        }
+        if (HttpMethod.PATCH.equals(httpMethod)) {
+            return restTemplate.patchForObject(url, uriVariables, String.class, uriVariables);
+        }
+        if (HttpMethod.POST.equals(httpMethod)) {
+            return restTemplate.postForObject(url, uriVariables, String.class, uriVariables);
+        }
+        if (HttpMethod.PUT.equals(httpMethod)) {
+            restTemplate.put(url, uriVariables, uriVariables);
+            return null;
+        }
+        if (HttpMethod.DELETE.equals(httpMethod)) {
+            restTemplate.delete(url, uriVariables);
+            return null;
+        }
+        throw new MusicException("不支持的类型[%s]", httpMethod.name());
     }
 
     private <T> T read(Object source, String exp) {

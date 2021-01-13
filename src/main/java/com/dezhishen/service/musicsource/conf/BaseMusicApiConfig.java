@@ -10,4 +10,5 @@ public class BaseMusicApiConfig {
     private String uri;
     private HttpMethod method;
     private String root;
+    private boolean useProperties;
 }
