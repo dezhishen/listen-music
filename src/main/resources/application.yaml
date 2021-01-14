@@ -2,20 +2,15 @@ cache:
   expires:
     _music_url: 3600
 spring:
-  redis:
-    host: ${REDIS_HOST:127.0.0.1}
-    port: ${REDIS_PORT:6379}
-    password: ${REDIS_PASSWORD:}
+  ehcache:
+    config: classpath:ehcache.xml
   session:
-    store-type: redis
-    redis.namespace: session
+    store-type: none
   datasource:
     # 使用druid数据源
     type: com.alibaba.druid.pool.DruidDataSource
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/listen_music?useUnicode=true&characterEncoding=UTF-8
-    username: ${MYSQL_USERNAME:root}
-    password: ${MYSQL_PASSWORD:rootroot}
+    driver-class-name: org.sqlite.JDBC
+    url: jdbc:sqlite:/data/listen-music-db.sqlite
     filters: stat
     maxActive: 20
     initialSize: 1

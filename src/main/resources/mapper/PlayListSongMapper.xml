@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dezhishen.music.mapper.PlayListSongMapper">
+    <resultMap id="BaseResultMap" type="com.dezhishen.music.domain.PlayListSong">
+        <result column="play_list_id" property="playListId"/>
+        <result column="song_id" property="songId"/>
+        <result column="source" property="source"/>
+    </resultMap>
+
+    <select id="selectSongByPlayListId" resultMap="com.dezhishen.music.mapper.SongMapper.BaseResultMap">
+        select s.* from play_list_song ps ,song s
+        where s.id = ps.song_id
+        and s.source = ps.source
+        and ps.play_list_id = #{playListId}
+    </select>
+</mapper>

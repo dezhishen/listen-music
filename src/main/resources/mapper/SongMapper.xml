@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dezhishen.music.mapper.SongMapper">
+    <resultMap id="BaseResultMap" type="com.dezhishen.music.domain.Song">
+        <result column="id" property="id"/>
+        <result column="source" property="source"/>
+        <result column="name" property="name"/>
+        <result column="lyric" property="lyric"/>
+        <result column="artists_name" property="artistsName"/>
+    </resultMap>
+</mapper>
