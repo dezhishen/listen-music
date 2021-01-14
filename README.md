@@ -72,8 +72,12 @@
 * [MiguMusicApi](https://github.com/jsososo/MiguMusicApi)
 
 ## 启动说明
-### 1.启动音乐API服务
-#### 1.1.配置文件说明
+### 1.启动至少一个音乐API服务
+* [NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi)
+* [QQMusicApi](https://github.com/jsososo/QQMusicApi)
+* [MiguMusicApi](https://github.com/jsososo/MiguMusicApi)
+### 2.启动本服务
+#### 2.1.配置文件说明
 
 ```yaml
 music-server:
@@ -126,7 +130,6 @@ music-server:
       label: 网易云
       ...
 ```
-### 2.启动本服务
 * `mvn clean install` 
 * 设置环境变量(根据你的配置文件),默认配置文件有
 
