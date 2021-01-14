@@ -130,6 +130,7 @@ music-server:
       label: 网易云
       ...
 ```
+#### 2.2.启动步骤
 * `mvn clean install` 
 * 设置环境变量(根据你的配置文件),默认配置文件有
 
