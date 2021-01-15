@@ -1,6 +1,9 @@
-cache:
-  expires:
-    _music_url: 3600
+swagger:
+  enabled: true
+  base-package: com.dezhishen.music
+  title: "listen-music"
+  description: "listen-music"
+  version: "v1"
 spring:
   ehcache:
     config: classpath:ehcache.xml
@@ -32,7 +35,7 @@ music-server:
     NeteaseCloud:
       enabled: true
       label: 网易云
-      base-uri:  ${NETEASE_CLOUD_URI:http://localhost:3000}
+      base-uri: ${NETEASE_CLOUD_URI:http://localhost:3000}
       api:
         song:
           uri: "/song/detail?ids={id}"
@@ -66,7 +69,7 @@ music-server:
     QQMusicApi:
       enabled: true
       label: QQ音乐
-      base-uri:  ${QQ_MUSIC_URI:http://localhost:3300}
+      base-uri: ${QQ_MUSIC_URI:http://localhost:3300}
       api:
         song-lyric:
           uri: "/lyric?songmid={id}"
@@ -100,7 +103,7 @@ music-server:
     MiguMusicApi:
       enabled: true
       label: 咪咕音乐
-      base-uri:  ${MIGU_MUSIC_URI:http://localhost:3400}
+      base-uri: ${MIGU_MUSIC_URI:http://localhost:3400}
       api:
         song-lyric:
           uri: "/lyric?cid={cid}"

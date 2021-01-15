@@ -35,6 +35,7 @@ public class BiscuitHandlerFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
         if (!filterConfig.isEnabled()) {
             filterChain.doFilter(servletRequest, response);
+            return;
         }
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         if (filterConfig.getIgnore().contains(request.getRequestURI())) {

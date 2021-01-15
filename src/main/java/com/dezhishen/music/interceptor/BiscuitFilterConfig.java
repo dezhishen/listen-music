@@ -14,5 +14,5 @@ import java.util.Set;
 @ConfigurationProperties(prefix = "biscuit-filter")
 public class BiscuitFilterConfig {
     private Set<String> ignore = new HashSet<>();
-    private boolean enabled = true;
+    private boolean enabled;
 }
