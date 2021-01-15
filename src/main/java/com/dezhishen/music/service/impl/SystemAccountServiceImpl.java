@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-// change 补充注解
 @Service
 public class SystemAccountServiceImpl extends AbstractServiceImpl<SystemAccount> implements SystemAccountService {
 
@@ -53,26 +52,20 @@ public class SystemAccountServiceImpl extends AbstractServiceImpl<SystemAccount>
         }
         SystemAccount condition = new SystemAccount();
         condition.setLoginName(loginName);
-        //change 只需要判断账号是否重复即可 使用selectCount即可
         if (systemAccountMapper.selectCount(new QueryWrapper<>(condition)) > 0) {
             throw new MusicException("账号名[%s]已存在", loginName);
         }
         SystemUser user = new SystemUser();
         user.setName(nickName);
-        //change 不调用异步方法
-        systemUserService.insert(user);
+        SystemUser db = systemUserService.insert(user);
         SystemAccount normalizedAccount = new SystemAccount();
         normalizedAccount.setLoginName(loginName);
         normalizedAccount.setNickName(nickName);
-
         String salt = RandomUtil.randomString(6);
         normalizedAccount.setSalt(salt);
         normalizedAccount.setPassword(PasswordUtil.encryptPassword(loginName, salt, account.getPassword()));
-        //change 设置用户id
-        normalizedAccount.setUserId(user.getId());
-        //直接调用mapper.insert
-        mapper().insert(account);
-//        insertAsync(normalizedAccount);
+        normalizedAccount.setUserId(db.getId());
+        mapper().insert(normalizedAccount);
         return true;
     }
 
