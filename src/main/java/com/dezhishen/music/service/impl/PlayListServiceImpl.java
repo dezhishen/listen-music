@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.dezhishen.music.domain.PlayList;
 import com.dezhishen.music.domain.PlayListSong;
 import com.dezhishen.music.domain.Song;
+import com.dezhishen.music.exception.MusicException;
 import com.dezhishen.music.mapper.PlayListMapper;
 import com.dezhishen.music.mapper.PlayListSongMapper;
 import com.dezhishen.music.service.MusicService;
@@ -14,6 +15,7 @@ import com.dezhishen.music.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -75,5 +77,17 @@ public class PlayListServiceImpl extends AbstractServiceImpl<PlayList> implement
         record.setPlayListId(id);
         playListSongMapper.delete(new UpdateWrapper<>(record));
         return super.delete(id);
+    }
+
+    @Override
+    public PlayList save(PlayList playList) {
+        if (StringUtils.isEmpty(playList.getId())) {
+            PlayList r = new PlayList();
+            r.setUserId(playList.getUserId());
+            if (mapper.selectCount(new QueryWrapper<>(r)) >= 5) {
+                throw new MusicException("最多创建5个歌单");
+            }
+        }
+        return super.save(playList);
     }
 }

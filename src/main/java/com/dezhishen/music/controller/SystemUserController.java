@@ -16,8 +16,8 @@ public class SystemUserController extends BaseController {
     @Autowired
     private SystemUserMapper systemUserMapper;
 
-    @GetMapping("{id}")
-    public RespEntity<SystemUser> get(@PathVariable String id) {
-        return success(systemUserMapper.selectById(id));
+    @GetMapping("current")
+    public RespEntity<SystemUser> get() {
+        return success(systemUserMapper.selectById(getUserId()));
     }
 }
