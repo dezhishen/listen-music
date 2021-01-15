@@ -28,6 +28,13 @@ public class CacheKey {
      */
     public static final String MUSIC_URL = "_music_url";
 
+
+    public static final String ACCESS_TOKEN = "access_token_";
+
+    public static final String REFRESH_TOKEN = "refresh_token_";
+
+    public static final String ACCOUNT_ACCESS_TOKEN = "account_access_token_";
+
     public static String getKeyBySourceAndId(String source, String id) {
         return String.format("%s" + CacheKey.SEPARATOR + "%s", source, id);
     }
