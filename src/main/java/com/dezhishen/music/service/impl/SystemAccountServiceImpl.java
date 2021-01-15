@@ -1,14 +1,18 @@
 package com.dezhishen.music.service.impl;
 
 import cn.hutool.core.util.RandomUtil;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.dezhishen.music.domain.SystemAccount;
 import com.dezhishen.music.domain.SystemUser;
+import com.dezhishen.music.dto.LoginRequest;
+import com.dezhishen.music.dto.LoginResult;
 import com.dezhishen.music.exception.MusicException;
 import com.dezhishen.music.mapper.SystemAccountMapper;
 import com.dezhishen.music.service.SystemAccountService;
 import com.dezhishen.music.service.SystemUserService;
+import com.dezhishen.music.service.TokenService;
 import com.dezhishen.music.uitl.PasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +28,9 @@ public class SystemAccountServiceImpl extends AbstractServiceImpl<SystemAccount>
 
     @Autowired
     private SystemUserService systemUserService;
+
+    @Autowired
+    private TokenService tokenService;
 
     @Override
     protected BaseMapper<SystemAccount> mapper() {
@@ -67,6 +74,26 @@ public class SystemAccountServiceImpl extends AbstractServiceImpl<SystemAccount>
         mapper().insert(account);
 //        insertAsync(normalizedAccount);
         return true;
+    }
+
+    @Override
+    public LoginResult login(LoginRequest loginRequest) {
+        if (StringUtils.isEmpty(loginRequest.getLoginName())) {
+            throw new MusicException("未传入账户名");
+        }
+        if (StringUtils.isEmpty(loginRequest.getPassword())) {
+            throw new MusicException("未传入密码");
+        }
+        SystemAccount t = new SystemAccount();
+        t.setLoginName(loginRequest.getLoginName());
+        SystemAccount db = mapper().selectOne(new QueryWrapper<>(t));
+        if (db == null) {
+            throw new MusicException("账号不存在");
+        }
+        if (!PasswordUtil.match(db.getLoginName(), db.getSalt(), loginRequest.getPassword(), db.getPassword())) {
+            throw new MusicException("账号或者密码错误");
+        }
+        return tokenService.createToken(db);
     }
 //
 //    @Override

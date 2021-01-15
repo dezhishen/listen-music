@@ -1,6 +1,8 @@
 package com.dezhishen.music.service;
 
 import com.dezhishen.music.domain.SystemAccount;
+import com.dezhishen.music.dto.LoginRequest;
+import com.dezhishen.music.dto.LoginResult;
 
 public interface SystemAccountService extends IBaseService<SystemAccount> {
     /**
@@ -10,4 +12,12 @@ public interface SystemAccountService extends IBaseService<SystemAccount> {
      * @return
      */
     boolean registerAccount(SystemAccount account);
+
+    /**
+     * 登录
+     *
+     * @param loginRequest
+     * @return
+     */
+    LoginResult login(LoginRequest loginRequest);
 }
