@@ -11,8 +11,8 @@ import java.util.Set;
 @Setter
 @Getter
 @Configuration
-@ConfigurationProperties(prefix = "biscuit-filter")
-public class BiscuitFilterConfig {
+@ConfigurationProperties(prefix = "auth")
+public class AuthFilterConfig {
     private Set<String> ignore = new HashSet<>();
     private boolean enabled;
 }

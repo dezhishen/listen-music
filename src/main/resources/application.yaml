@@ -138,9 +138,8 @@ music-server:
               root: "$.artists"
               id: "$.id"
               name: "$.name"
-biscuit-filter:
-  enabled: false
+auth:
+  enabled: true
   ignore:
-    - /biscuit/save
     - /regsiter
     - /login

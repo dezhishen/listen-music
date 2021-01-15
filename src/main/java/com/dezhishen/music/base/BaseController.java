@@ -100,10 +100,10 @@ public class BaseController {
             return null;
         }
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        if (StringUtils.isEmpty(request.getSession().getAttribute(SessionKey.BISCUIT))) {
+        if (StringUtils.isEmpty(request.getSession().getAttribute(SessionKey.TOKEN))) {
             return null;
         }
-        return _biscuitService.get((String) request.getSession().getAttribute(SessionKey.BISCUIT));
+        return _biscuitService.get((String) request.getSession().getAttribute(SessionKey.TOKEN));
     }
 
 }
