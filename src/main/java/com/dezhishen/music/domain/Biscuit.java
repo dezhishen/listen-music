@@ -9,6 +9,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@Deprecated
 public class Biscuit extends BaseDomain {
     private String userId;
 }

@@ -48,4 +48,28 @@
            memoryStoreEvictionPolicy="LRU">
         <persistence strategy="localTempSwap"/>
     </cache>
+    <cache name="access_token_"
+           eternal="true"
+           maxElementsInMemory="10000"
+           maxElementsOnDisk="10000"
+           diskExpiryThreadIntervalSeconds="604800"
+           memoryStoreEvictionPolicy="LRU">
+        <persistence strategy="localTempSwap"/>
+    </cache>
+    <cache name="account_access_token_"
+           eternal="true"
+           maxElementsInMemory="100"
+           maxElementsOnDisk="10000"
+           diskExpiryThreadIntervalSeconds="604800"
+           memoryStoreEvictionPolicy="LRU">
+        <persistence strategy="localTempSwap"/>
+    </cache>
+    <cache name="refresh_token_"
+           eternal="true"
+           maxElementsInMemory="100"
+           maxElementsOnDisk="10000"
+           diskExpiryThreadIntervalSeconds="6048000"
+           memoryStoreEvictionPolicy="LRU">
+        <persistence strategy="localTempSwap"/>
+    </cache>
 </ehcache>

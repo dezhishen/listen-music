@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
+@Deprecated
 public class BiscuitServiceImpl extends AbstractServiceImpl<Biscuit> implements BiscuitService {
     @Autowired
     private BiscuitMapper mapper;
