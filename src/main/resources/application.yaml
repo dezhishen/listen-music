@@ -141,5 +141,5 @@ music-server:
 auth:
   enabled: true
   ignore:
-    - /system/account/regsiter
+    - /system/account/register
     - /system/account/login
