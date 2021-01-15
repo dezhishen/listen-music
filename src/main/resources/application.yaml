@@ -136,5 +136,8 @@ music-server:
               id: "$.id"
               name: "$.name"
 biscuit-filter:
+  enabled: false
   ignore:
     - /biscuit/save
+    - /regsiter
+    - /login

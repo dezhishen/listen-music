@@ -33,6 +33,9 @@ public class BiscuitHandlerFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
+        if (!filterConfig.isEnabled()) {
+            filterChain.doFilter(servletRequest, response);
+        }
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         if (filterConfig.getIgnore().contains(request.getRequestURI())) {
             filterChain.doFilter(servletRequest, response);
@@ -65,7 +68,6 @@ public class BiscuitHandlerFilter implements Filter {
             return;
         }
         request.getSession().setAttribute(HEAD_NAME, biscuitId);
-        //校验饼干是否存在
         filterChain.doFilter(servletRequest, response);
     }
 }
