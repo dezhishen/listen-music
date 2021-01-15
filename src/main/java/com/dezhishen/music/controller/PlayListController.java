@@ -35,7 +35,7 @@ public class PlayListController extends BaseController {
 
     @PostMapping("/save")
     public RespEntity<PlayList> save(@RequestBody PlayList playList) {
-        playList.setUserId(getBiscuit().getUserId());
+        playList.setUserId(getUserId());
         return success(playListService.save(playList));
     }
 

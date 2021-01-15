@@ -2,9 +2,10 @@ package com.dezhishen.music.base;
 
 import com.dezhishen.music.constant.SessionKey;
 import com.dezhishen.music.domain.Biscuit;
+import com.dezhishen.music.domain.SystemAccount;
 import com.dezhishen.music.domain.SystemUser;
 import com.dezhishen.music.exception.MusicException;
-import com.dezhishen.music.service.BiscuitService;
+import com.dezhishen.music.service.SystemAccountService;
 import com.dezhishen.music.service.SystemUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -18,10 +19,12 @@ import javax.servlet.http.HttpServletRequest;
  * @author dezhishen
  */
 public class BaseController {
+    //    @Autowired
+//    private BiscuitService _biscuitService;
     @Autowired
-    private BiscuitService _biscuitService;
+    private SystemUserService userService;
     @Autowired
-    private SystemUserService systemUserService;
+    private SystemAccountService accountService;
 
     /**
      * 成功
@@ -80,30 +83,52 @@ public class BaseController {
      * @return
      */
     protected SystemUser getUser() {
-        Biscuit biscuit = getBiscuit();
-        if (biscuit == null) {
+        String id = getUserId();
+        if (StringUtils.isEmpty(id)) {
             return null;
         }
-        return systemUserService.get(biscuit.getUserId());
+        return userService.get(id);
     }
 
     protected String getUserId() {
-        Biscuit biscuit = getBiscuit();
-        if (biscuit == null) {
-            return null;
-        }
-        return biscuit.getUserId();
-    }
-
-    protected Biscuit getBiscuit() {
         if (RequestContextHolder.getRequestAttributes() == null) {
             return null;
         }
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        if (StringUtils.isEmpty(request.getSession().getAttribute(SessionKey.TOKEN))) {
+        if (StringUtils.isEmpty(request.getSession().getAttribute(SessionKey.USER_ID))) {
             return null;
         }
-        return _biscuitService.get((String) request.getSession().getAttribute(SessionKey.TOKEN));
+        return (String) request.getSession().getAttribute(SessionKey.USER_ID);
     }
+
+
+    protected SystemAccount getAccount() {
+        String id = getAccountId();
+        if (StringUtils.isEmpty(id)) {
+            return null;
+        }
+        return accountService.get(id);
+    }
+
+    //
+    protected String getAccountId() {
+        if (RequestContextHolder.getRequestAttributes() == null) {
+            return null;
+        }
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        if (StringUtils.isEmpty(request.getSession().getAttribute(SessionKey.ACCOUNT_ID))) {
+            return null;
+        }
+        return (String) request.getSession().getAttribute(SessionKey.ACCOUNT_ID);
+    }
+//
+//    protected Biscuit getBiscuit() {
+//
+//
+//        if (StringUtils.isEmpty(request.getSession().getAttribute(SessionKey.TOKEN))) {
+//            return null;
+//        }
+//        return _biscuitService.get((String) request.getSession().getAttribute(SessionKey.TOKEN));
+//    }
 
 }
