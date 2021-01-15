@@ -4,12 +4,14 @@ import cn.hutool.core.util.RandomUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.dezhishen.music.domain.PlayList;
 import com.dezhishen.music.domain.SystemAccount;
 import com.dezhishen.music.domain.SystemUser;
 import com.dezhishen.music.dto.LoginRequest;
 import com.dezhishen.music.dto.LoginResult;
 import com.dezhishen.music.exception.MusicException;
 import com.dezhishen.music.mapper.SystemAccountMapper;
+import com.dezhishen.music.service.PlayListService;
 import com.dezhishen.music.service.SystemAccountService;
 import com.dezhishen.music.service.SystemUserService;
 import com.dezhishen.music.service.TokenService;
@@ -30,6 +32,8 @@ public class SystemAccountServiceImpl extends AbstractServiceImpl<SystemAccount>
 
     @Autowired
     private TokenService tokenService;
+    @Autowired
+    private PlayListService playListService;
 
     @Override
     protected BaseMapper<SystemAccount> mapper() {
@@ -66,6 +70,10 @@ public class SystemAccountServiceImpl extends AbstractServiceImpl<SystemAccount>
         normalizedAccount.setPassword(PasswordUtil.encryptPassword(loginName, salt, account.getPassword()));
         normalizedAccount.setUserId(db.getId());
         mapper().insert(normalizedAccount);
+        PlayList t = new PlayList();
+        t.setUserId(db.getId());
+        t.setName("我喜欢的音乐");
+        playListService.save(t);
         return true;
     }
 

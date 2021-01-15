@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -89,5 +90,21 @@ public class PlayListServiceImpl extends AbstractServiceImpl<PlayList> implement
             }
         }
         return super.save(playList);
+    }
+
+    @Override
+    public List<PlayList> select(PlayList playList) {
+        List<PlayList> result = super.select(playList);
+        if (result == null || result.isEmpty()) {
+            if (!StringUtils.isEmpty(playList.getUserId())) {
+                PlayList t = new PlayList();
+                t.setUserId(playList.getUserId());
+                t.setName("我喜欢的音乐");
+                PlayList e = save(playList);
+                result = new ArrayList<>();
+                result.add(e);
+            }
+        }
+        return result;
     }
 }
