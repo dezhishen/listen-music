@@ -1,5 +1,6 @@
 package com.dezhishen.music.domain;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.dezhishen.music.base.BaseDomain;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,4 +27,7 @@ public class SystemAccount extends BaseDomain {
      * 用户id
      */
     private String userId;
+
+    @TableField(exist = false)
+    private String nickName;
 }
