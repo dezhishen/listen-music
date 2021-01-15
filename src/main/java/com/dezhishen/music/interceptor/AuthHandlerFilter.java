@@ -33,7 +33,8 @@ public class AuthHandlerFilter implements Filter {
             return;
         }
         HttpServletRequest request = (HttpServletRequest) servletRequest;
-        if (filterConfig.getIgnore().contains(request.getRequestURI())) {
+        String url = request.getRequestURI().replaceFirst(request.getContextPath(),"");
+        if (filterConfig.getIgnore().contains(url)) {
             filterChain.doFilter(servletRequest, response);
             return;
         }
