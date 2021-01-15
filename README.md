@@ -5,8 +5,9 @@
 
 
 ## 简述
-* 项目基于springboot进行开发,与外界交互使用http接口和websocket和外部交互
-* 底层直接用redis存储
+* 项目基于`springboot2.x`进行开发,与外界交互使用http接口和websocket和外部交互
+* ~~底层直接用redis存储~~
+* 底层使用`SQLite`和`ehcahe`
 * 音乐服务均来自第三方
 ## 灵感来源
 ### [Jusic-Serve-Houses](https://github.com/JumpAlang/Jusic-Serve-Houses)
