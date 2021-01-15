@@ -26,5 +26,5 @@ public interface SystemAccountService extends IBaseService<SystemAccount> {
      * @param token
      * @return
      */
-    Boolean loginOut(String token);
+    Boolean logout(String token);
 }

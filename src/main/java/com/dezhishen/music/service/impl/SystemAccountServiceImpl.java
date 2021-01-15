@@ -90,7 +90,7 @@ public class SystemAccountServiceImpl extends AbstractServiceImpl<SystemAccount>
     }
 
     @Override
-    public Boolean loginOut(String token) {
+    public Boolean logout(String token) {
         tokenService.removeToken(token);
         return true;
     }
