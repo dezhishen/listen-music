@@ -4,84 +4,80 @@
 本项目作为跨平台听歌的后端项目
 
 
-## 简述
+## 1.简述
 * 项目基于`springboot2.x`进行开发,与外界交互使用http接口和websocket和外部交互
 * ~~底层直接用redis存储~~
 * 底层使用`SQLite`和`ehcahe`
 * 音乐服务均来自第三方
-## 灵感来源
-### [Jusic-Serve-Houses](https://github.com/JumpAlang/Jusic-Serve-Houses)
+## 2.灵感来源
+### 2.1.[Jusic-Serve-Houses](https://github.com/JumpAlang/Jusic-Serve-Houses)
 学习和研究的过程中,发现不符合本人编码习惯,所以打算重新做一个,重复造轮子什么的最棒了
 
-## 项目结构说明
-
-![](./doc/项目层次.jpg)
-
-## 功能
+## 3.功能
 * 用户(会话)
-    * [x] 设计
-        * ~~简单粗暴,使用 用户->饼干,请求头中给饼干id~~
-    * 实现
-        *  [ ] ~~账号注册~~
-        * ~~账号下饼干管理~~
-            * [ ] ~~查看饼干~~
-            * [ ] ~~创建饼干~~
-            * [ ] ~~删除饼干~~
-        * [x] ~~拦截请求,获取饼干id~~
-        * [x] ~~获取当前会话饼干和用户~~
-    * [ ] 重新设计,移除饼干设计,使用 token
-    * [ ] 注册
-    * [ ] 登录
-    * [ ] 拦截token 
+  * [x] 设计
+    * ~~简单粗暴,使用 用户->饼干,请求头中给饼干id~~
+  * 实现
+    *  [ ] ~~账号注册~~
+    * ~~账号下饼干管理~~
+      * [ ] ~~查看饼干~~
+      * [ ] ~~创建饼干~~
+      * [ ] ~~删除饼干~~
+    * [x] ~~拦截请求,获取饼干id~~
+    * [x] ~~获取当前会话饼干和用户~~
+  * [ ] 重新设计,移除饼干设计,使用 token
+  * [ ] 注册
+  * [ ] 登录
+  * [ ] 拦截token
 * 房间管理
-    * [x] 创建房间
-    * [ ] 加入房间
-    * [ ] 离开房间
-    * [ ] 解散房间
+  * [x] 创建房间
+  * [ ] 加入房间
+  * [ ] 离开房间
+  * [ ] 解散房间
 * 歌单管理
-    * [x] 创建歌单
-    * [x] 添加歌曲
-    * [x] 移除歌曲
-    * [x] 获取歌单信息
-    * [x] 获取歌单中的音乐列表
+  * [x] 创建歌单
+  * [x] 添加歌曲
+  * [x] 移除歌曲
+  * [x] 获取歌单信息
+  * [x] 获取歌单中的音乐列表
 * 歌曲服务
-    * [x] 集成[JsonPath](https://github.com/json-path/JsonPath)
-      * 使用配置的方式实现对音乐资源的获取
-        * NeteaseCloudMusicApi
-            * [x] 获取单个歌曲信息
-            * [x] 获取单个歌曲播放地址
-            * [x] 搜索歌曲
-            * [ ] 搜索歌单
-            * [ ] 搜索用户
-            * [ ] 标识vip歌曲,防止获取播放地址错误的问题
-        * QQMusicApi
-            * [x] 获取单个歌曲信息
-            * [x] 获取单个歌曲播放地址
-            * [x] 搜索歌曲
-            * [ ] 搜索歌单
-            * [ ] 搜索用户
-            * [ ] 标识vip歌曲,防止获取播放地址错误的问题
-        * MiguMusicApi
-            * [x] 获取单个歌曲信息
-            * [x] 获取单个歌曲播放地址
-            * [x] 搜索歌曲
-            * [ ] 搜索歌单
-            * [ ] 搜索用户
-            * [ ] 标识vip歌曲,防止获取播放地址错误的问题
+  * [x] 集成[JsonPath](https://github.com/json-path/JsonPath)
+    * 使用配置的方式实现对音乐资源的获取
+      * NeteaseCloudMusicApi
+        * [x] 获取单个歌曲信息
+        * [x] 获取单个歌曲播放地址
+        * [x] 搜索歌曲
+        * [ ] 搜索歌单
+        * [ ] 搜索用户
+        * [ ] 标识vip歌曲,防止获取播放地址错误的问题
+      * QQMusicApi
+        * [x] 获取单个歌曲信息
+        * [x] 获取单个歌曲播放地址
+        * [x] 搜索歌曲
+        * [ ] 搜索歌单
+        * [ ] 搜索用户
+        * [ ] 标识vip歌曲,防止获取播放地址错误的问题
+      * MiguMusicApi
+        * [x] 获取单个歌曲信息
+        * [x] 获取单个歌曲播放地址
+        * [x] 搜索歌曲
+        * [ ] 搜索歌单
+        * [ ] 搜索用户
+        * [ ] 标识vip歌曲,防止获取播放地址错误的问题
 * [x] SQLite持久化
 * [x] flyway初始化数据库
 * [x] ehcache内存缓存
-## 项目依赖
+## 4.项目依赖
 * [NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi)
 * [QQMusicApi](https://github.com/jsososo/QQMusicApi)
 * [MiguMusicApi](https://github.com/jsososo/MiguMusicApi)
 
-## 启动说明
-### 1.启动至少一个音乐API服务
+## 5.启动说明
+### 5.1.启动至少一个音乐API服务
 * [NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi)
 * [QQMusicApi](https://github.com/jsososo/QQMusicApi)
 * [MiguMusicApi](https://github.com/jsososo/MiguMusicApi)
-### 2.启动本服务
+### 5.2.启动本服务
 #### 2.1.配置文件说明
 
 ```yaml
@@ -135,8 +131,8 @@ music-server:
       label: 网易云
       ...
 ```
-#### 2.2.启动步骤
-* `mvn clean install` 
+#### 5.2.2.启动步骤
+* `mvn clean install`
 * 设置环境变量(根据你的配置文件),默认配置文件有
 
 名称|说明|默认值
@@ -145,9 +141,9 @@ MIGU_MUSIC_URI|咪咕api的访问地址|http://localhost:3400
 QQ_MUSIC_URI|QQ音乐api的访问地址|http://localhost:3300
 NETEASE_CLOUD_URI|网易云api的访问地址|http://localhost:3000
 
-* 运行jar包`java -jar ./target/listen-music-${version}.jar` 
+* 运行jar包`java -jar ./target/listen-music-${version}.jar`
 
-#### 2.3.docker启动
+#### 5.2.3.docker启动
 
 * 构建或者拉取一个镜像
 * 持久化路径环境变量`MUSIC_DATA_PATH`默认值:`/listen_music_data`
