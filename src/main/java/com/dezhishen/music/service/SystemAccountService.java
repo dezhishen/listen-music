@@ -20,4 +20,11 @@ public interface SystemAccountService extends IBaseService<SystemAccount> {
      * @return
      */
     LoginResult login(LoginRequest loginRequest);
+
+    /**
+     * 登出
+     * @param token
+     * @return
+     */
+    Boolean loginOut(String token);
 }

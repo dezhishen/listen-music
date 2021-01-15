@@ -121,14 +121,16 @@ public class BaseController {
         }
         return (String) request.getSession().getAttribute(SessionKey.ACCOUNT_ID);
     }
-//
-//    protected Biscuit getBiscuit() {
-//
-//
-//        if (StringUtils.isEmpty(request.getSession().getAttribute(SessionKey.TOKEN))) {
-//            return null;
-//        }
-//        return _biscuitService.get((String) request.getSession().getAttribute(SessionKey.TOKEN));
-//    }
+
+    protected String getToken() {
+        if (RequestContextHolder.getRequestAttributes() == null) {
+            return null;
+        }
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        if (StringUtils.isEmpty(request.getSession().getAttribute(SessionKey.TOKEN))) {
+            return null;
+        }
+        return (String) request.getSession().getAttribute(SessionKey.TOKEN);
+    }
 
 }

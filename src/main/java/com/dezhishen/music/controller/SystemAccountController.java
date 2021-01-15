@@ -28,5 +28,10 @@ public class SystemAccountController extends BaseController {
         return success(systemAccountService.login(request));
     }
 
+    @DeleteMapping("/loginOut")
+    public RespEntity<Boolean> loginOut() {
+        return success(systemAccountService.loginOut(getToken()));
+    }
+
 
 }

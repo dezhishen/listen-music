@@ -88,6 +88,12 @@ public class SystemAccountServiceImpl extends AbstractServiceImpl<SystemAccount>
         }
         return tokenService.createToken(db);
     }
+
+    @Override
+    public Boolean loginOut(String token) {
+        tokenService.removeToken(token);
+        return true;
+    }
 //
 //    @Override
 //    @Async
