@@ -144,5 +144,26 @@ MIGU_MUSIC_URI|咪咕api的访问地址|http://localhost:3400
 QQ_MUSIC_URI|QQ音乐api的访问地址|http://localhost:3300
 NETEASE_CLOUD_URI|网易云api的访问地址|http://localhost:3000
 
-* 创建数据存储目录 `/data`
 * 运行jar包`java -jar ./target/listen-music-${version}.jar` 
+
+#### 2.3.docker启动
+
+* 构建或者拉取一个镜像
+* 持久化路径环境变量`MUSIC_DATA_PATH`默认值:`/listen_music_data`
+* 音乐服务环境变量
+
+名称|说明|默认值
+-|-|-
+MIGU_MUSIC_URI|咪咕api的访问地址|http://localhost:3400
+QQ_MUSIC_URI|QQ音乐api的访问地址|http://localhost:3300
+NETEASE_CLOUD_URI|网易云api的访问地址|http://localhost:3000
+
+* 持久化数据到本地
+  * 根据上面配置的环境变量 `MUSIC_DATA_PATH`(或者默认值`/listen_music_data`),挂载本地数据卷
+  * 如: `-v ${yourVolume:/listen_music_data}`
+* 映射端口 `-p ${yourPort}:8080`
+
+
+
+
+

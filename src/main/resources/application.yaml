@@ -10,7 +10,7 @@ spring:
     # 使用druid数据源
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: org.sqlite.JDBC
-    url: jdbc:sqlite:/data/listen-music-db.sqlite
+    url: jdbc:sqlite:${music.data.path:${MUSIC_DATA_PATH:/listen_music_data}}/listen-music-db.sqlite
     filters: stat
     maxActive: 20
     initialSize: 1
@@ -19,7 +19,7 @@ spring:
     timeBetweenEvictionRunsMillis: 60000
     minEvictableIdleTimeMillis: 300000
     validationQuery: select 1 FROM DUAL
-    testWhileIdle: true
+    testWhileIdle: false
     testOnBorrow: false
     testOnReturn: false
     poolPreparedStatements: true
