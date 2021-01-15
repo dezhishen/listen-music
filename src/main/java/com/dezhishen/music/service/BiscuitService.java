@@ -7,5 +7,6 @@ import com.dezhishen.music.domain.Biscuit;
  *
  * @author dezhishen
  */
+@Deprecated
 public interface BiscuitService extends IBaseService<Biscuit> {
 }

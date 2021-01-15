@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/biscuit")
+@Deprecated
 public class BiscuitController extends BaseController {
     @Autowired
     private BiscuitService biscuitService;
