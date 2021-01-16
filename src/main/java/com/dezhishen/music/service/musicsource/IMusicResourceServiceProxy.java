@@ -5,6 +5,8 @@ import com.dezhishen.music.domain.PlayList;
 import com.dezhishen.music.domain.Song;
 import com.github.pagehelper.PageInfo;
 
+import java.util.List;
+
 public interface IMusicResourceServiceProxy {
 
 
@@ -61,9 +63,19 @@ public interface IMusicResourceServiceProxy {
 
     /**
      * 获取歌词
+     *
      * @param source
      * @param id
      * @return
      */
     String getLyric(String source, String id);
+
+    /**
+     * 获取歌单的歌曲列表
+     *
+     * @param source
+     * @param playListId
+     * @return
+     */
+    PlayList getSongsBySourceAndPlayListId(String source, String playListId);
 }

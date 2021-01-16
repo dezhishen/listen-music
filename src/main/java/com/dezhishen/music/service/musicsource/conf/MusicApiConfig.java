@@ -10,4 +10,5 @@ public class MusicApiConfig {
     private MusicApiGetSongUrlConfig songUrl;
     private MusicApiSearchSongConfig searchSong;
     private MusicApiGetSongLyrConfig songLyric;
+    private MusicApiGetPlayListConfig playList;
 }

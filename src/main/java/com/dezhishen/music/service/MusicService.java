@@ -5,6 +5,8 @@ import com.dezhishen.music.domain.PlayList;
 import com.dezhishen.music.domain.Song;
 import com.github.pagehelper.PageInfo;
 
+import java.util.List;
+
 /**
  * 音乐服务
  *
@@ -60,4 +62,13 @@ public interface MusicService {
      * @return url地址
      */
     String getSongUrlBySourceAndId(String source, String id);
+
+    /**
+     * 获取歌单的歌曲列表
+     *
+     * @param source
+     * @param sourcePlayListId
+     * @return
+     */
+    PlayList getSongsBySourceAndPlayListId(String source, String sourcePlayListId);
 }

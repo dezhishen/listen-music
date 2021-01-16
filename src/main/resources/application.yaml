@@ -66,8 +66,17 @@ music-server:
               root: "$.artists"
               id: "$.id"
               name: "$.name"
+        play-list:
+          uri: "/playlist/detail?id={playListId}"
+          root: "$.playlist"
+          name: "$.name"
+          id: "$.id"
+          songs:
+            root: "$.tracks"
+            name: "$.name"
+            id: "$.id"
     QQMusicApi:
-      enabled: true
+      enabled: false
       label: QQ音乐
       base-uri: ${QQ_MUSIC_URI:http://localhost:3300}
       api:

@@ -22,4 +22,6 @@ public class PlayList extends BaseDomain {
     private String description;
     @TableField(exist = false)
     private List<String> tags;
+    @TableField(exist = false)
+    private List<Song> songs;
 }

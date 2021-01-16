@@ -65,4 +65,9 @@ public class PlayListController extends BaseController {
     public RespEntity<List<Song>> listSongs(@RequestParam String playListId) {
         return success(playListService.selectSongs(playListId));
     }
+
+    @PostMapping("/song/import")
+    public RespEntity<List<Song>> importSongs(@RequestParam String playListId, @RequestParam String source, @RequestParam String sourcePlayListId) {
+        return success(playListService.importSongs(playListId, source, sourcePlayListId));
+    }
 }

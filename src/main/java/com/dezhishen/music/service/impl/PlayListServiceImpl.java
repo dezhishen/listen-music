@@ -73,6 +73,20 @@ public class PlayListServiceImpl extends AbstractServiceImpl<PlayList> implement
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    public List<Song> importSongs(String playListId, String source, String sourcePlayListId) {
+        PlayList playList = musicService.getSongsBySourceAndPlayListId(source, sourcePlayListId);
+        if (playList == null || playList.getSongs() == null || playList.getSongs().isEmpty()) {
+            throw new MusicException("当前传入歌单无歌曲");
+        }
+        List<Song> result = new ArrayList<>();
+        for (Song song : playList.getSongs()) {
+            result.add(addSong(playListId, song));
+        }
+        return result;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
     public Boolean delete(String id) {
         PlayListSong record = new PlayListSong();
         record.setPlayListId(id);

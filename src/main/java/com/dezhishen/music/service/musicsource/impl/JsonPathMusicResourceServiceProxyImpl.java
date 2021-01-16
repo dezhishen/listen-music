@@ -228,6 +228,42 @@ public class JsonPathMusicResourceServiceProxyImpl implements IMusicResourceServ
         return read(root, config.getLyric());
     }
 
+    @Override
+    public PlayList getSongsBySourceAndPlayListId(String source, String playListId) {
+        Map<String, Object> uriVariables = new HashMap<>(2);
+        uriVariables.put("playListId", playListId);
+        MusicServerProperty property = musicServerConfig.getProperty(source);
+        MusicApiGetPlayListConfig config = property.getApi().getPlayList();
+        if (config.isUseProperties()) {
+            Song song = getSongWithoutLyrBySourceAndId(source, playListId);
+            if (song.getProperties() != null && !song.getProperties().isEmpty()) {
+                uriVariables.putAll(song.getProperties());
+            }
+        }
+        String resp = request(
+                property.getBaseUri() + "/" + config.getUri(),
+                uriVariables,
+                config.getMethod()
+        );
+        PlayList result = new PlayList();
+        Object root = read(resp, config.getRoot());
+        result.setName(read(root, config.getName()));
+        List<Object> songsJson = read(root, config.getSongs().getRoot());
+        if (songsJson == null || songsJson.isEmpty()) {
+            return null;
+        }
+        List<Song> songs = new ArrayList<>();
+        for (Object o : songsJson) {
+            Song s = new Song();
+            s.setId(read(o, config.getSongs().getId()));
+            s.setName(read(o, config.getSongs().getName()));
+            s.setSource(source);
+            songs.add(s);
+        }
+        result.setSongs(songs);
+        return result;
+    }
+
     @Autowired
     private MusicSourceStorage musicSourceStorage;
 

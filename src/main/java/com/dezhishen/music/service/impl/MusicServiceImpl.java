@@ -9,6 +9,8 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author dezhishen
  */
@@ -40,5 +42,10 @@ public class MusicServiceImpl implements MusicService {
     @Override
     public String getSongUrlBySourceAndId(String source, String id) {
         return sourceProxy.getSongUrlById(source, id);
+    }
+
+    @Override
+    public PlayList getSongsBySourceAndPlayListId(String source, String sourcePlayListId) {
+        return sourceProxy.getSongsBySourceAndPlayListId(source, sourcePlayListId);
     }
 }

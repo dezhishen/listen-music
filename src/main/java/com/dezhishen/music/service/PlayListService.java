@@ -17,4 +17,6 @@ public interface PlayListService extends IBaseService<PlayList> {
     boolean removeSong(String playListId, String source, String songId);
 
     List<Song> selectSongs(String playListId);
+
+    List<Song> importSongs(String playListId, String source, String sourcePlayListId);
 }
