@@ -75,6 +75,7 @@ music-server:
             root: "$.tracks"
             name: "$.name"
             id: "$.id"
+          songIds: "$.trackIds[*].id"
     QQMusicApi:
       enabled: false
       label: QQ音乐

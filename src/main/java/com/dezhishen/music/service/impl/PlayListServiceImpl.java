@@ -42,7 +42,7 @@ public class PlayListServiceImpl extends AbstractServiceImpl<PlayList> implement
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Song addSong(String playListId, Song song) {
+    public Song addSongAsync(String playListId, Song song) {
         PlayListSong record = new PlayListSong();
         record.setPlayListId(playListId);
         record.setSource(song.getSource());
@@ -53,6 +53,21 @@ public class PlayListServiceImpl extends AbstractServiceImpl<PlayList> implement
         playListSongMapper.insert(record);
         Song result = musicService.getSongBySourceAndId(record.getSource(), record.getSongId());
         songService.insertAsync(result);
+        return result;
+    }
+
+    @Override
+    public Song addSong(String playListId, Song song) {
+        PlayListSong record = new PlayListSong();
+        record.setPlayListId(playListId);
+        record.setSource(song.getSource());
+        record.setSongId(song.getId());
+        if (playListSongMapper.selectCount(new QueryWrapper<>(record)) > 0) {
+            return null;
+        }
+        playListSongMapper.insert(record);
+        Song result = musicService.getSongBySourceAndId(record.getSource(), record.getSongId());
+        songService.insert(result);
         return result;
     }
 
@@ -80,7 +95,10 @@ public class PlayListServiceImpl extends AbstractServiceImpl<PlayList> implement
         }
         List<Song> result = new ArrayList<>();
         for (Song song : playList.getSongs()) {
-            result.add(addSong(playListId, song));
+            Song e = addSong(playListId, song);
+            if (e != null) {
+                result.add(e);
+            }
         }
         return result;
     }

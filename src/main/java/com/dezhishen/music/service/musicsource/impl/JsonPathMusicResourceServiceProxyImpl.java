@@ -248,17 +248,28 @@ public class JsonPathMusicResourceServiceProxyImpl implements IMusicResourceServ
         PlayList result = new PlayList();
         Object root = read(resp, config.getRoot());
         result.setName(read(root, config.getName()));
-        List<Object> songsJson = read(root, config.getSongs().getRoot());
-        if (songsJson == null || songsJson.isEmpty()) {
-            return null;
-        }
         List<Song> songs = new ArrayList<>();
-        for (Object o : songsJson) {
-            Song s = new Song();
-            s.setId(read(o, config.getSongs().getId()));
-            s.setName(read(o, config.getSongs().getName()));
-            s.setSource(source);
-            songs.add(s);
+        if (!StringUtils.isEmpty(config.getSongIds())) {
+            List<String> songIds = read(root, config.getSongIds());
+            if (songIds != null && !songIds.isEmpty()) {
+                for (Object id : songIds) {
+                    Song s = new Song();
+                    s.setId(id);
+                    s.setSource(source);
+                    songs.add(s);
+                }
+            }
+        } else {
+            List<Object> songsJson = read(root, config.getSongs().getRoot());
+            if (songsJson != null && !songsJson.isEmpty()) {
+                for (Object o : songsJson) {
+                    Song s = new Song();
+                    s.setId(read(o, config.getSongs().getId()));
+                    s.setName(read(o, config.getSongs().getName()));
+                    s.setSource(source);
+                    songs.add(s);
+                }
+            }
         }
         result.setSongs(songs);
         return result;

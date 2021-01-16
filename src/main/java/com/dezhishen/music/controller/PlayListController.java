@@ -53,7 +53,7 @@ public class PlayListController extends BaseController {
 
     @PostMapping("/song/add")
     public RespEntity<Song> addSong(@RequestBody SongForAdd song) {
-        return success(playListService.addSong(song.getPlayListId(), song));
+        return success(playListService.addSongAsync(song.getPlayListId(), song));
     }
 
     @DeleteMapping("/song/remove")

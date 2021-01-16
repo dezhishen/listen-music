@@ -12,6 +12,8 @@ import java.util.List;
  * @author dezhishen
  */
 public interface PlayListService extends IBaseService<PlayList> {
+    Song addSongAsync(String playListId, Song song);
+
     Song addSong(String playListId, Song song);
 
     boolean removeSong(String playListId, String source, String songId);

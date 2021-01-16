@@ -3,6 +3,8 @@ package com.dezhishen.music.service.musicsource.conf;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Setter
 @Getter
 public class MusicApiGetPlayListConfig extends BaseMusicApiConfig {
@@ -19,4 +21,5 @@ public class MusicApiGetPlayListConfig extends BaseMusicApiConfig {
     private String name;
     private String description;
     private SongsConfig songs;
+    private String songIds;
 }
