@@ -132,7 +132,7 @@ public class PlayListServiceImpl extends AbstractServiceImpl<PlayList> implement
                 PlayList t = new PlayList();
                 t.setUserId(playList.getUserId());
                 t.setName("我喜欢的音乐");
-                PlayList e = save(playList);
+                PlayList e = save(t);
                 result = new ArrayList<>();
                 result.add(e);
             }
