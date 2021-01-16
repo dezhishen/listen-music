@@ -77,7 +77,7 @@ music-server:
             id: "$.id"
           songIds: "$.trackIds[*].id"
     QQMusicApi:
-      enabled: false
+      enabled: true
       label: QQ音乐
       base-uri: ${QQ_MUSIC_URI:http://localhost:3300}
       api:
