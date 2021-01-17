@@ -41,7 +41,7 @@
   * [x] 移除歌曲
   * [x] 获取歌单信息
   * [x] 获取歌单中的音乐列表
-* 歌曲服务
+* 音乐服务
   * [x] 集成[JsonPath](https://github.com/json-path/JsonPath)
     * 使用配置的方式实现对音乐资源的获取
       * NeteaseCloudMusicApi
