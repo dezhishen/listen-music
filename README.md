@@ -25,10 +25,10 @@
       * [ ] ~~删除饼干~~
     * [x] ~~拦截请求,获取饼干id~~
     * [x] ~~获取当前会话饼干和用户~~
-  * [ ] 重新设计,移除饼干设计,使用 token
-  * [ ] 注册
-  * [ ] 登录
-  * [ ] 拦截token
+  * [x] 重新设计,移除饼干设计,使用 token
+  * [x] 注册
+  * [x] 登录
+  * [x] 拦截token
 * 房间管理
   * [x] 创建房间
   * [ ] 加入房间
@@ -36,6 +36,7 @@
   * [ ] 解散房间
 * 歌单管理
   * [x] 创建歌单
+  * [x] 删除歌单
   * [x] 添加歌曲
   * [x] 移除歌曲
   * [x] 获取歌单信息
@@ -47,6 +48,7 @@
         * [x] 获取单个歌曲信息
         * [x] 获取单个歌曲播放地址
         * [x] 搜索歌曲
+        * [X] 导入歌单歌曲->本平台歌单
         * [ ] 搜索歌单
         * [ ] 搜索用户
         * [ ] 标识vip歌曲,防止获取播放地址错误的问题
@@ -54,6 +56,7 @@
         * [x] 获取单个歌曲信息
         * [x] 获取单个歌曲播放地址
         * [x] 搜索歌曲
+        * [ ] 导入歌单歌曲->本平台歌单
         * [ ] 搜索歌单
         * [ ] 搜索用户
         * [ ] 标识vip歌曲,防止获取播放地址错误的问题
@@ -61,6 +64,7 @@
         * [x] 获取单个歌曲信息
         * [x] 获取单个歌曲播放地址
         * [x] 搜索歌曲
+        * [ ] 导入歌单歌曲->本平台歌单
         * [ ] 搜索歌单
         * [ ] 搜索用户
         * [ ] 标识vip歌曲,防止获取播放地址错误的问题
@@ -78,8 +82,8 @@
 * [QQMusicApi](https://github.com/jsososo/QQMusicApi)
 * [MiguMusicApi](https://github.com/jsososo/MiguMusicApi)
 ### 5.2.启动本服务
-#### 2.1.配置文件说明
-
+#### 5.2.1.配置文件说明
+**基于以下配置文件,可以配置多种音乐服务**
 ```yaml
 music-server:
   services: # 对接了哪些音乐服务 type是map
@@ -127,6 +131,16 @@ music-server:
           uri: "/lyric?cid={cid}" # 使用额外参数 cid 
           root: "$"
           lyric: "$.data"
+        play-list: # 歌单
+          uri: "/playlist/detail?id={playListId}" 地址
+          root: "$.playlist" 
+          name: "$.name"
+          id: "$.id"
+          songs: # 歌曲列表
+            root: "$.tracks"
+            name: "$.name"
+            id: "$.id"
+          songIds: "$.trackIds[*].id" # 歌曲ID列表
     NeteaseCloud:
       label: 网易云
       ...
