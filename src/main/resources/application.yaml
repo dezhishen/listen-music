@@ -37,9 +37,6 @@ spring:
     testOnReturn: false
     poolPreparedStatements: true
     maxOpenPreparedStatements: 20
-server:
-  servlet:
-    context-path: /api
 music-server:
   services:
     NeteaseCloud:
@@ -163,5 +160,6 @@ auth:
   ignore:
     - /system/account/register
     - /system/account/login
-    - /player/**
+    - /
+    - /index/**
     - /static/**
