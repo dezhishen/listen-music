@@ -174,7 +174,9 @@ NETEASE_CLOUD_URI|网易云api的访问地址|http://localhost:3000
   * 如: `-v ${yourVolume:/listen_music_data}`
 * 映射端口 `-p ${yourPort}:8080`
 
+#### 5.2.4.访问
 
+http://localhost:8080
 
 
 
