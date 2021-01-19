@@ -71,4 +71,6 @@ public interface MusicService {
      * @return
      */
     PlayList getSongsBySourceAndPlayListId(String source, String sourcePlayListId);
+
+    Boolean updateCover();
 }

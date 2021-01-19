@@ -19,6 +19,7 @@ public class Song implements Serializable {
     private String source;
     private String id;
     private String name;
+    private String cover;
     @TableField(exist = false)
     private Integer position;
     @TableField(exist = false)

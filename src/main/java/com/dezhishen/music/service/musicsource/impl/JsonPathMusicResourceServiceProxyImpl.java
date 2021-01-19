@@ -94,6 +94,7 @@ public class JsonPathMusicResourceServiceProxyImpl implements IMusicResourceServ
             result = new Song();
             result.setId(read(songJson, config.getId()));
             result.setName(read(songJson, config.getName()));
+            result.setCover(read(songJson, config.getCover()));
             JsonPathArtistsConfig artistsConfig = config.getArtists();
             List<Object> artistsJsonArray = read(songJson, artistsConfig.getRoot());
             if (artistsJsonArray != null && !artistsJsonArray.isEmpty()) {

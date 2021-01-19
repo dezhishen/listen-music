@@ -4,6 +4,7 @@
     <resultMap id="BaseResultMap" type="com.dezhishen.music.domain.Song">
         <result column="id" property="id"/>
         <result column="source" property="source"/>
+        <result column="cover" property="cover"/>
         <result column="name" property="name"/>
         <result column="lyric" property="lyric"/>
         <result column="artists_name" property="artistsName"/>

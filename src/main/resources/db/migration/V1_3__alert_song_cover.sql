@@ -1,0 +1,1 @@
+alter table song add column cover text;

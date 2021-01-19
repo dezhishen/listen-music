@@ -49,6 +49,7 @@ music-server:
           root: "$.songs[0]"
           id: "$.id"
           name: "$.name"
+          cover: "$.al.picUrl"
           artists:
             root: "$.ar"
             id: "$.id"
@@ -132,6 +133,7 @@ music-server:
           root: "$.data"
           id: "$.id"
           name: "$.name"
+          cover: "$.album.picUrl"
           artists:
             root: "$.artists"
             id: "$.id"

@@ -57,4 +57,10 @@ public class SongController extends BaseController {
             @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
         return success(musicService.searchPlayList(q, source, pageNum, pageSize));
     }
+
+
+    @GetMapping("/updateCover")
+    public RespEntity<Boolean> update() {
+        return success(musicService.updateCover());
+    }
 }

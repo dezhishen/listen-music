@@ -10,6 +10,7 @@ import java.util.Map;
 public class MusicApiGetSongConfig extends BaseMusicApiConfig {
     private String id;
     private String name;
+    private String cover;
     private JsonPathArtistsConfig artists;
     private boolean processProperties;
     private Map<String, String> propertiesAlias;
