@@ -5,6 +5,16 @@ swagger:
   description: "listen-music"
   version: "v1"
 spring:
+  resources:
+    static-locations: classpath:templates/
+  thymeleaf:
+    prefix: classpath:/templates/
+    check-template-location: true
+    suffix: .html
+    encoding: UTF-8
+    content-type: text/html
+    mode: HTML5
+    cache: false
   ehcache:
     config: classpath:ehcache.xml
   session:
@@ -153,3 +163,5 @@ auth:
   ignore:
     - /system/account/register
     - /system/account/login
+    - /player/**
+    - /static/**

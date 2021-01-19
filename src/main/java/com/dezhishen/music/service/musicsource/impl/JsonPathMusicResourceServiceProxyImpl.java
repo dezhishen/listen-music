@@ -16,16 +16,18 @@ import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpRequest;
+import org.springframework.http.client.ClientHttpRequestExecution;
+import org.springframework.http.client.ClientHttpRequestInterceptor;
+import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * 音乐服务对外入口
@@ -42,7 +44,17 @@ public class JsonPathMusicResourceServiceProxyImpl implements IMusicResourceServ
 
     @Bean(name = "MusicSourceTemplate")
     public RestTemplate restTemplate() {
-        return new RestTemplate();
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.setInterceptors(Collections.singletonList(
+                (request, body, execution) -> {
+                    request.getHeaders().set("Accept", "*/*");
+                    request.getHeaders().set("Accept-Language", "zh-CN,zh;q=0.8,gl;q=0.6,zh-TW;q=0.4");
+                    request.getHeaders().set("Connection", "keep-alive");
+                    request.getHeaders().set("Referer", "never");
+                    return execution.execute(request, body);
+                }
+        ));
+        return restTemplate;
     }
 
     @Autowired
